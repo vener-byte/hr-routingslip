@@ -689,7 +689,7 @@ body {
 .excel-btn-edit:hover { background: var(--th-accent); color: var(--th-bg-deep); }
 .excel-btn-print { background: transparent; border: 1px solid var(--th-blue-accent); color: var(--th-blue-accent); font-size: .6rem; padding: 2px 7px; border-radius: 2px; cursor: pointer; }
 .excel-btn-print:hover { background: var(--th-blue-accent); color: #fff; }
-.th-search, .th-search-out {
+.th-search, .th-search-out, .th-search-log {
   width: 100%; background: var(--th-bg-input); border: 1px solid var(--th-border);
   border-radius: 2px; color: var(--th-text-primary); font-size: .65rem;
   padding: 3px 5px 3px 20px; outline: none; font-family: inherit; box-sizing: border-box;
@@ -698,7 +698,7 @@ body {
   background-repeat: no-repeat;
   background-position: 4px center;
 }
-.th-search:focus, .th-search-out:focus { border-color: var(--th-accent); }
+.th-search:focus, .th-search-out:focus, .th-search-log:focus { border-color: var(--th-accent); }
 /* Phantom Steel — silver search icon */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C0C0C0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
@@ -2503,13 +2503,15 @@ html[data-theme="luxurious"] .excel-btn-print:hover { background: #e0b855; color
 
 /* ─ Search icon — cyan ─ */
 html[data-theme="luxurious"] .th-search,
-html[data-theme="luxurious"] .th-search-out {
+html[data-theme="luxurious"] .th-search-out,
+html[data-theme="luxurious"] .th-search-log {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300e5ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: 4px center;
 }
 html[data-theme="luxurious"] .th-search:focus,
-html[data-theme="luxurious"] .th-search-out:focus { border-color: #d4a843; box-shadow: 0 0 6px rgba(212,168,67,.15); }
+html[data-theme="luxurious"] .th-search-out:focus,
+html[data-theme="luxurious"] .th-search-log:focus { border-color: #d4a843; box-shadow: 0 0 6px rgba(212,168,67,.15); }
 
 /* ─ Tags ─ */
 html[data-theme="luxurious"] .tag-gold { background: rgba(212,168,67,.10); color: #d4a843; border-color: rgba(212,168,67,.25); }
@@ -3806,13 +3808,15 @@ html[data-theme="misty"] .excel-btn-print:hover { background: #333333; color: #E
 
 /* ─ Search icon — cyan ─ */
 html[data-theme="misty"] .th-search,
-html[data-theme="misty"] .th-search-out {
+html[data-theme="misty"] .th-search-out,
+html[data-theme="misty"] .th-search-log {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300e5ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: 4px center;
 }
 html[data-theme="misty"] .th-search:focus,
-html[data-theme="misty"] .th-search-out:focus { border-color: #1A1A1A; box-shadow: 0 0 6px rgba(26,26,26,.08); }
+html[data-theme="misty"] .th-search-out:focus,
+html[data-theme="misty"] .th-search-log:focus { border-color: #1A1A1A; box-shadow: 0 0 6px rgba(26,26,26,.08); }
 
 /* ─ Tags ─ */
 html[data-theme="misty"] .tag-gold { background: rgba(26,26,26,.05); color: #1A1A1A; border-color: rgba(26,26,26,.15); }
@@ -5110,13 +5114,15 @@ html[data-theme="phantom"] .excel-btn-print:hover { background: #B0B0B0; color: 
 
 /* ─ Search icon — cyan ─ */
 html[data-theme="phantom"] .th-search,
-html[data-theme="phantom"] .th-search-out {
+html[data-theme="phantom"] .th-search-out,
+html[data-theme="phantom"] .th-search-log {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300e5ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: 4px center;
 }
 html[data-theme="phantom"] .th-search:focus,
-html[data-theme="phantom"] .th-search-out:focus { border-color: #C0C0C0; box-shadow: 0 0 6px rgba(192,192,192,.15); }
+html[data-theme="phantom"] .th-search-out:focus,
+html[data-theme="phantom"] .th-search-log:focus { border-color: #C0C0C0; box-shadow: 0 0 6px rgba(192,192,192,.15); }
 
 /* ─ Tags ─ */
 html[data-theme="phantom"] .tag-gold { background: rgba(192,192,192,.10); color: #C0C0C0; border-color: rgba(192,192,192,.25); }
@@ -7079,7 +7085,8 @@ html[data-theme="misty"] input:not([type=checkbox]):not([type=radio]):not([type=
 html[data-theme="misty"] select,
 html[data-theme="misty"] textarea,
 html[data-theme="misty"] .th-search,
-html[data-theme="misty"] .th-search-out {
+html[data-theme="misty"] .th-search-out,
+html[data-theme="misty"] .th-search-log {
   background-color: #FFFFFF; color: #000; border: 1px solid #7F9DB9; border-radius: 0;
   box-shadow: inset 1px 1px 1px rgba(0,0,0,.08);
 }
@@ -7087,11 +7094,13 @@ html[data-theme="misty"] input:focus,
 html[data-theme="misty"] select:focus,
 html[data-theme="misty"] textarea:focus,
 html[data-theme="misty"] .th-search:focus,
-html[data-theme="misty"] .th-search-out:focus {
+html[data-theme="misty"] .th-search-out:focus,
+html[data-theme="misty"] .th-search-log:focus {
   border-color: #316AC5; box-shadow: 0 0 0 1px #316AC5, 0 0 4px rgba(49,106,197,.4); outline: none;
 }
 html[data-theme="misty"] .th-search,
-html[data-theme="misty"] .th-search-out {
+html[data-theme="misty"] .th-search-out,
+html[data-theme="misty"] .th-search-log {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23316AC5' stroke-width='2.5' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
 }
 html[data-theme="misty"] select option { background: #FFFFFF; color: #000; }
@@ -7696,7 +7705,7 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
       <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap">
         <button class="btn btn-outline exec-hide" onclick="showView('form')">+ New Slip</button>
         <button class="btn btn-outline exec-hide" id="btn-in-edit" onclick="inSelEdit()" disabled style="opacity:.4;cursor:not-allowed">✏️ Edit</button>
-        <button class="btn btn-outline exec-hide" id="btn-in-print" onclick="inSelPrint()" disabled style="opacity:.4;cursor:not-allowed">🖨 Print</button>
+        <button class="btn btn-outline exec-hide" id="btn-in-print" onclick="inSelPrint()" disabled style="opacity:.4;cursor:not-allowed">🖨 Reprint Slip</button>
         <button class="btn return-btn" id="btn-in-return" onclick="inSelReturn()" disabled
           style="display:none;opacity:.4;cursor:not-allowed;background:transparent;border:1.5px solid var(--th-orange-text);color:var(--th-orange-text);padding:8px 22px;border-radius:2px;font-family:inherit;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:all .18s;">
           ↩ Return
@@ -7813,10 +7822,11 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
         <span style="font-size:.6rem;color:var(--th-text-faint);display:flex;align-items:center;gap:4px;padding:0 6px;">
           <span class="live-dot"></span>Live · 15 s
         </span>
-        <!-- Super admin delete toolbar — hidden for non-super-admin -->
+        <!-- Logs action toolbar for super admin, admin and receiving -->
         <div id="logs-sa-toolbar" style="display:none;align-items:center;gap:6px;">
           <button onclick="logsSelectAll()" style="background:transparent;border:1px solid var(--th-border);color:var(--th-text-muted);font-size:.58rem;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;cursor:pointer;font-family:inherit;">☑ SELECT ALL</button>
-          <button onclick="logsDeleteSelected()" style="background:var(--th-red-bg);border:1px solid var(--th-red-text);color:var(--th-red-text);font-size:.58rem;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;cursor:pointer;font-family:inherit;">🗑 DELETE SELECTED</button>
+          <button id="btn-logs-delete" onclick="logsDeleteSelected()" style="background:var(--th-red-bg);border:1px solid var(--th-red-text);color:var(--th-red-text);font-size:.58rem;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;cursor:pointer;font-family:inherit;">🗑 DELETE</button>
+          <button id="btn-logs-reprint" onclick="logsReprintSelected()" style="background:transparent;border:1px solid var(--th-accent);color:var(--th-accent);font-size:.58rem;font-weight:700;letter-spacing:.06em;padding:3px 10px;border-radius:2px;cursor:pointer;font-family:inherit;">🖨 REPRINT</button>
           <span id="logs-sel-count" style="font-size:.6rem;color:var(--th-text-faint);"></span>
         </div>
       </div>
@@ -7825,18 +7835,44 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
       <div style="flex:1;min-height:0;display:flex;flex-direction:column;">
         <div class="records-table-wrapper">
           <div class="excel-wrap">
-            <table class="excel-table" id="logs-excel-table" style="min-width:860px;">
+            <table class="excel-table" id="logs-excel-table" style="min-width:1020px;">
               <thead>
                 <tr>
-                  <th style="width:28px;" id="logs-chk-th"></th>
-                  <th style="width:140px;">DATE &amp; TIME</th>
-                  <th style="width:50px;">TYPE</th>
-                  <th style="width:110px;">CONTROL / REF NO.</th>
-                  <th style="width:104px;">ACTION</th>
-                  <th>SUBJECT</th>
-                  <th style="width:160px;">FROM</th>
-                  <th style="width:160px;">TO</th>
-                  <th style="width:200px;">NOTES</th>
+                  <th style="width:28px;text-align:center;vertical-align:top;padding-top:7px;" id="logs-chk-th">
+                    <input type="checkbox" id="logs-master-chk" title="Select all" onchange="logsToggleMaster(this)" style="cursor:pointer;accent-color:var(--th-accent);width:13px;height:13px;display:none;"/>
+                  </th>
+                  <th style="width:145px;text-align:center;vertical-align:top;padding-bottom:4px;">
+                    <div style="white-space:nowrap;margin-bottom:4px;">DATE &amp; TIME</div>
+                    <input class="th-search-log" type="text" data-col="dateTime" placeholder="" oninput="debounceLogColSearch()"/>
+                  </th>
+                  <th style="width:60px;text-align:center;vertical-align:top;padding-bottom:4px;">
+                    <div style="white-space:nowrap;margin-bottom:4px;">TYPE</div>
+                    <input class="th-search-log" type="text" data-col="type" placeholder="" oninput="debounceLogColSearch()"/>
+                  </th>
+                  <th style="width:130px;text-align:center;vertical-align:top;padding-bottom:4px;">
+                    <div style="white-space:nowrap;margin-bottom:4px;">CONTROL / REF NO.</div>
+                    <input class="th-search-log" type="text" data-col="controlNo" placeholder="" oninput="debounceLogColSearch()"/>
+                  </th>
+                  <th style="width:115px;text-align:center;vertical-align:top;padding-bottom:4px;">
+                    <div style="white-space:nowrap;margin-bottom:4px;">ACTION</div>
+                    <input class="th-search-log" type="text" data-col="action" placeholder="" oninput="debounceLogColSearch()"/>
+                  </th>
+                  <th style="min-width:150px;text-align:center;vertical-align:top;padding-bottom:4px;">
+                    <div style="white-space:nowrap;margin-bottom:4px;">SUBJECT</div>
+                    <input class="th-search-log" type="text" data-col="subject" placeholder="" oninput="debounceLogColSearch()"/>
+                  </th>
+                  <th style="width:160px;text-align:center;vertical-align:top;padding-bottom:4px;">
+                    <div style="white-space:nowrap;margin-bottom:4px;">FROM</div>
+                    <input class="th-search-log" type="text" data-col="from" placeholder="" oninput="debounceLogColSearch()"/>
+                  </th>
+                  <th style="width:160px;text-align:center;vertical-align:top;padding-bottom:4px;">
+                    <div style="white-space:nowrap;margin-bottom:4px;">TO</div>
+                    <input class="th-search-log" type="text" data-col="to" placeholder="" oninput="debounceLogColSearch()"/>
+                  </th>
+                  <th style="width:200px;text-align:center;vertical-align:top;padding-bottom:4px;">
+                    <div style="white-space:nowrap;margin-bottom:4px;">NOTES</div>
+                    <input class="th-search-log" type="text" data-col="notes" placeholder="" oninput="debounceLogColSearch()"/>
+                  </th>
                 </tr>
               </thead>
               <tbody id="logs-tbody">
@@ -10616,6 +10652,7 @@ function updateInSelButtons() {
   const n = selectedInIds.size;
   const isExec     = currentAccount?.role === 'executive';
   const isAdmin    = currentAccount?.role === 'admin' || currentAccount?.role === 'super_admin';
+  const canReprint = ['super_admin', 'admin', 'receiving'].includes(currentAccount?.role);
   const btnEdit    = document.getElementById('btn-in-edit');
   const btnPrint   = document.getElementById('btn-in-print');
   const btnDelete  = document.getElementById('btn-in-delete');
@@ -10628,12 +10665,17 @@ function updateInSelButtons() {
     b.style.opacity = anySelected ? '1' : '.4';
     b.style.cursor  = anySelected ? 'pointer' : 'not-allowed';
   });
-  // Print — not available for executive
+  // Reprint — only for super_admin, admin, and receiving
   if (btnPrint) {
-    const canPrint = !isExec && anySelected;
-    btnPrint.disabled = !canPrint;
-    btnPrint.style.opacity = canPrint ? '1' : '.4';
-    btnPrint.style.cursor  = canPrint ? 'pointer' : 'not-allowed';
+    if (canReprint) {
+      btnPrint.style.display = '';
+      btnPrint.disabled = !anySelected;
+      btnPrint.style.opacity = anySelected ? '1' : '.4';
+      btnPrint.style.cursor  = anySelected ? 'pointer' : 'not-allowed';
+    } else {
+      btnPrint.style.display = 'none';
+      btnPrint.disabled = true;
+    }
   }
   // Edit — not available for executive
   if (btnEdit) {
@@ -10689,10 +10731,16 @@ function inSelEdit() {
   editSlip(id);
 }
 
-function inSelPrint() {
-  if (currentAccount?.role === 'executive') return;
+async function inSelPrint() {
+  const role = currentAccount?.role;
+  if (!['super_admin', 'admin', 'receiving'].includes(role)) {
+    showToast('⚠ Only Admin and Receiving accounts can reprint slips', '#e06060');
+    return;
+  }
   if (selectedInIds.size === 0) return;
-  [...selectedInIds].forEach(id => printSlipById(id));
+  for (const id of selectedInIds) {
+    await printSlipById(id);
+  }
 }
 
 async function inSelDelete() {
@@ -11038,6 +11086,7 @@ function renderRecords() {
     </tr>`;
 
     if (!collapsed) {
+      const canReprint = ['super_admin', 'admin', 'receiving'].includes(currentAccount?.role);
       filtered.forEach(s => {
         const docLabel   = [...s.docTypes].map(d => d==='Others'&&s.othersText?s.othersText:d).join(', ') || '—';
         const routeLabel = [...(s.routeTo||[])].join(', ') || '—';
@@ -11046,7 +11095,10 @@ function renderRecords() {
           <td style="text-align:center;width:44px" onclick="event.stopPropagation()">
             <input type="checkbox" class="in-row-cb" data-id="${s.id}" ${isSelected?'checked':''} onchange="toggleInRow(${s.id},this)" style="accent-color:var(--th-accent);width:14px;height:14px;cursor:pointer"/>
           </td>
-          <td style="text-align:center;text-transform:uppercase">${s.controlNo}</td>
+          <td style="text-align:center;text-transform:uppercase;white-space:nowrap;">
+            ${s.controlNo}
+            ${canReprint ? `<button type="button" title="Reprint slip ${s.controlNo}" onclick="event.stopPropagation();printSlipById(${s.id})" style="background:transparent;border:none;cursor:pointer;font-size:.82rem;margin-left:4px;padding:1px 3px;color:var(--th-accent);border-radius:2px;vertical-align:middle;display:inline-flex;align-items:center;" onmouseover="this.style.background='var(--th-accent-dim)'" onmouseout="this.style.background='transparent'">🖨</button>` : ''}
+          </td>
           <td style="text-align:center">${fmtDate(s.dateReceived)||'—'}</td>
           <td style="text-align:center">${fmtTime(s.timeReceived)||'—'}</td>
           <td title="${docLabel}" style="text-transform:uppercase">${docLabel}</td>
@@ -11314,7 +11366,10 @@ function showIncomingEditModal(s) {
       </div>
 
       <!-- Actions -->
-      <div style="display:flex;gap:9px;justify-content:flex-end;border-top:1px solid var(--th-border);padding-top:14px">
+      <div style="display:flex;gap:9px;justify-content:flex-end;align-items:center;border-top:1px solid var(--th-border);padding-top:14px">
+        ${['super_admin', 'admin', 'receiving'].includes(currentAccount?.role) ? `
+          <button type="button" class="btn btn-outline" style="margin-right:auto;" onclick="printSlipById(${s.id})">🖨 Reprint Slip</button>
+        ` : ''}
         <button class="btn btn-ghost" onclick="document.getElementById('in-edit-modal-overlay').remove()">Cancel</button>
         <button class="btn btn-primary" onclick="saveIncomingEdit(${s.id})">Update Slip</button>
       </div>
@@ -11491,7 +11546,7 @@ async function saveIncomingEdit(id) {
     officeAgency:   ov('em-officeAgency'),
     letterDate:     ov('em-letterDate'),
     subject:        ov('em-subject'),
-    routeTo:        [...emRouteTo],
+    routeTo:        [...emRouteTo, ...[...(orig && orig.printRouteTo ? orig.printRouteTo : [])].map(x => '_PRINT_' + x)],
     forActions:     [...emForActs],
     notes:          ov('em-notes'),
     remarks:        ov('em-remarksOnly'),
@@ -11532,17 +11587,29 @@ async function saveIncomingEdit(id) {
   showToast('✓ Slip updated successfully');
 }
 
-function printSlipById(id) {
-  const s = slips.find(x => x.id === id);
-  if (!s) return;
+async function printSlipById(id) {
+  const role = currentAccount?.role;
+  if (!['super_admin', 'admin', 'receiving'].includes(role)) {
+    showToast('⚠ Only Admin and Receiving accounts can reprint slips', '#e06060');
+    return;
+  }
+  let s = slips.find(x => String(x.id) === String(id));
+  if (!s) {
+    if (typeof loadIncoming === 'function') await loadIncoming();
+    s = slips.find(x => String(x.id) === String(id));
+  }
+  if (!s) {
+    showToast('⚠ Slip not found for reprint', '#e06060');
+    return;
+  }
 
   // Temporarily swap state to build HTML for this slip
-  const _dt=docTypes,_rt=routeTo,_prt=printRouteTo,_fa=forActs,_mf=mayorFor;
-  docTypes     = new Set(s.docTypes||[]);
-  routeTo      = new Set(s.routeTo||[]);
-  printRouteTo = new Set(s.printRouteTo||[]);
-  forActs      = new Set(s.forActions||[]);
-  mayorFor     = new Set(s.mayorForActions||[]);
+  const _dt = docTypes, _rt = routeTo, _prt = printRouteTo, _fa = forActs, _mf = mayorFor;
+  docTypes     = new Set(s.docTypes || []);
+  routeTo      = new Set(s.routeTo || []);
+  printRouteTo = new Set(s.printRouteTo || []);
+  forActs      = new Set(s.forActions || []);
+  mayorFor     = new Set(s.mayorForActions || []);
 
   const fields = ['controlNo','dateReceived','timeReceived','receivedBy','othersText',
    'officeAgency','letterDate','subject','notes',
@@ -11550,25 +11617,35 @@ function printSlipById(id) {
    'mayorTo','mayorPosition','mayorOffice','mayorDateReceived','mayorTimeReceived','mayorReceivedBy','mayorRemarks',
    'furtherRemarks','returnDateReceived','returnTimeReceived','returnReceivedBy'];
   const saved = {};
-  fields.forEach(fid => { const el=document.getElementById(fid); if(el){ saved[fid]=el.value; el.value=s[fid]||''; }});
-  for (let i=0;i<5;i++){
-    ['rt_tofor_','rt_addr_','rt_in_','rt_out_','rt_init_'].forEach(p=>{
-      const el=document.getElementById(p+i); if(el){ saved[p+i]=el.value; el.value=s[p+i]||''; }
+
+  try {
+    fields.forEach(fid => {
+      const el = document.getElementById(fid);
+      if (el) { saved[fid] = el.value; el.value = s[fid] || ''; }
     });
-  }
+    for (let i = 0; i < 5; i++) {
+      ['rt_tofor_', 'rt_addr_', 'rt_in_', 'rt_out_', 'rt_init_'].forEach(p => {
+        const el = document.getElementById(p + i);
+        if (el) { saved[p + i] = el.value; el.value = s[p + i] || ''; }
+      });
+    }
 
-  const html = buildPrintHTML();
-
-  // Restore original state
-  docTypes=_dt; routeTo=_rt; printRouteTo=_prt; forActs=_fa; mayorFor=_mf;
-  fields.forEach(fid=>{ const el=document.getElementById(fid); if(el) el.value=saved[fid]; });
-  for(let i=0;i<5;i++){
-    ['rt_tofor_','rt_addr_','rt_in_','rt_out_','rt_init_'].forEach(p=>{
-      const el=document.getElementById(p+i); if(el) el.value=saved[p+i];
+    const html = buildPrintHTML();
+    printSlip(html);
+  } finally {
+    // Always restore original form state
+    docTypes = _dt; routeTo = _rt; printRouteTo = _prt; forActs = _fa; mayorFor = _mf;
+    fields.forEach(fid => {
+      const el = document.getElementById(fid);
+      if (el && saved[fid] !== undefined) el.value = saved[fid];
     });
+    for (let i = 0; i < 5; i++) {
+      ['rt_tofor_', 'rt_addr_', 'rt_in_', 'rt_out_', 'rt_init_'].forEach(p => {
+        const el = document.getElementById(p + i);
+        if (el && saved[p + i] !== undefined) el.value = saved[p + i];
+      });
+    }
   }
-
-  printSlip(html);
 }
 
 function updateBadge() {
@@ -13120,7 +13197,12 @@ async function showSlipProgress(slipId) {
       <div class="sp-body" id="sp-body">
         <div class="sp-loading">⏳ Loading progress tree…</div>
       </div>
-      <div style="padding:10px 18px;border-top:1px solid var(--th-border-soft);display:flex;justify-content:flex-end;flex-shrink:0;">
+      <div style="padding:10px 18px;border-top:1px solid var(--th-border-soft);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+        <div>
+          ${['super_admin', 'admin', 'receiving'].includes(currentAccount?.role) ? `
+            <button type="button" class="btn btn-outline" style="font-size:.72rem;padding:6px 14px;" onclick="printSlipById(${slipId})">🖨 Reprint Slip</button>
+          ` : ''}
+        </div>
         <button class="sp-close" id="sp-close-btn">✕ CLOSE</button>
       </div>
     </div>`;
@@ -13577,32 +13659,82 @@ function debounceLogSearch() {
   _logsTimer = setTimeout(loadAllLogs, 380);
 }
 
+// ── Debounced per-column search for logs ───────────────────
+let logColFilters = {};
+let _logColTimer  = null;
+
+function debounceLogColSearch() {
+  _logsCurrentPage = 1;
+  clearTimeout(_logColTimer);
+  _logColTimer = setTimeout(applyLogColSearch, 300);
+}
+
+function applyLogColSearch() {
+  const filters = {};
+  document.querySelectorAll('.th-search-log').forEach(inp => {
+    const col = inp.dataset.col;
+    const val = inp.value.trim().toLowerCase();
+    if (val) filters[col] = val;
+  });
+  logColFilters = filters;
+  if (typeof _SS !== 'undefined' && typeof _SS.saveLogColSearch === 'function') {
+    _SS.saveLogColSearch(filters);
+  }
+  _rerenderLogs();
+}
+
 // ── Fetch from API ─────────────────────────────────────────
 // ══════════════════════════════════════════════════════════
-//  ACTIVITY LOG MANAGEMENT (super admin only)
+//  ACTIVITY LOG MANAGEMENT (super admin, admin, receiving)
 // ══════════════════════════════════════════════════════════
 let _selectedLogIds = new Set();
+
+function logsToggleMaster(masterCb) {
+  const boxes = document.querySelectorAll('.log-chk');
+  boxes.forEach(b => { b.checked = masterCb.checked; });
+  logsUpdateSelCount();
+}
 
 function logsUpdateSelCount() {
   _selectedLogIds = new Set(
     [...document.querySelectorAll('.log-chk:checked')].map(c => Number(c.dataset.id))
   );
+  const n = _selectedLogIds.size;
   const lbl = document.getElementById('logs-sel-count');
-  if (lbl) lbl.textContent = _selectedLogIds.size > 0 ? `${_selectedLogIds.size} selected` : '';
+  if (lbl) lbl.textContent = n > 0 ? `${n} selected` : '';
+  const delBtn = document.getElementById('btn-logs-delete');
+  const repBtn = document.getElementById('btn-logs-reprint');
+  if (repBtn) {
+    repBtn.disabled = n === 0;
+    repBtn.style.opacity = n > 0 ? '1' : '.4';
+    repBtn.style.cursor  = n > 0 ? 'pointer' : 'not-allowed';
+  }
+  if (delBtn) {
+    delBtn.disabled = n === 0;
+    delBtn.style.opacity = n > 0 ? '1' : '.4';
+    delBtn.style.cursor  = n > 0 ? 'pointer' : 'not-allowed';
+  }
+  const master = document.getElementById('logs-master-chk');
+  const boxes = document.querySelectorAll('.log-chk');
+  if (master && boxes.length) {
+    master.checked = [...boxes].every(b => b.checked);
+  }
 }
 
 function logsSelectAll() {
   const boxes = document.querySelectorAll('.log-chk');
-  const allChecked = [...boxes].every(b => b.checked);
+  const allChecked = boxes.length > 0 && [...boxes].every(b => b.checked);
   boxes.forEach(b => { b.checked = !allChecked; });
   logsUpdateSelCount();
 }
 
 async function logsDeleteSelected() {
+  if (currentAccount?.role !== 'super_admin') {
+    showToast('⚠ Only Super Admin can delete log entries', '#e06060');
+    return;
+  }
   if (_selectedLogIds.size === 0) { showToast('⚠ No log entries selected'); return; }
-  if (!confirm(`Permanently delete ${_selectedLogIds.size} log entr${_selectedLogIds.size === 1 ? 'y' : 'ies'}?
-
-This cannot be undone.`)) return;
+  if (!confirm(`Permanently delete ${_selectedLogIds.size} log entr${_selectedLogIds.size === 1 ? 'y' : 'ies'}?\n\nThis cannot be undone.`)) return;
   try {
     const res = await fetch(`${API_URL}?action=delete_logs_bulk`, {
       method: 'POST', credentials: 'include',
@@ -13615,6 +13747,69 @@ This cannot be undone.`)) return;
     _selectedLogIds.clear();
     loadAllLogs();
   } catch(e) { showToast('⚠ Error — please try again'); }
+}
+
+async function logsReprintOne(slipId, controlNo) {
+  const role = currentAccount?.role;
+  if (!['super_admin', 'admin', 'receiving'].includes(role)) {
+    showToast('⚠ Only Admin, Receiving, and Super Admin accounts can reprint slips', '#e06060');
+    return;
+  }
+  if (typeof slips === 'undefined' || !slips.length) {
+    if (typeof loadIncoming === 'function') await loadIncoming();
+  }
+  let targetId = slipId;
+  if (!targetId || targetId === 'null' || targetId === 'undefined') {
+    const s = slips.find(x => x.controlNo === controlNo);
+    if (s) targetId = s.id;
+  }
+  if (!targetId) {
+    showToast('⚠ Slip not found: ' + controlNo, '#e06060');
+    return;
+  }
+  await printSlipById(targetId);
+}
+
+async function logsReprintSelected() {
+  const role = currentAccount?.role;
+  if (!['super_admin', 'admin', 'receiving'].includes(role)) {
+    showToast('⚠ Only Admin, Receiving, and Super Admin accounts can reprint slips', '#e06060');
+    return;
+  }
+  const checkedBoxes = [...document.querySelectorAll('.log-chk:checked')];
+  if (checkedBoxes.length === 0) {
+    showToast('⚠ Please select at least one log entry to reprint');
+    return;
+  }
+  if (typeof slips === 'undefined' || !slips.length) {
+    if (typeof loadIncoming === 'function') await loadIncoming();
+  }
+
+  const slipIdsToPrint = new Set();
+  for (const cb of checkedBoxes) {
+    const sid = cb.dataset.slipId;
+    const ctrl = cb.dataset.controlNo;
+    const stype = cb.dataset.slipType;
+
+    if (stype === 'outgoing') continue;
+
+    if (sid && sid !== 'null' && sid !== 'undefined') {
+      slipIdsToPrint.add(sid);
+    } else if (ctrl) {
+      const match = slips.find(s => s.controlNo === ctrl);
+      if (match) slipIdsToPrint.add(match.id);
+    }
+  }
+
+  if (slipIdsToPrint.size === 0) {
+    showToast('⚠ No incoming routing slips found in selected log entries', '#e06060');
+    return;
+  }
+
+  showToast(`🖨 Reprinting ${slipIdsToPrint.size} slip${slipIdsToPrint.size !== 1 ? 's' : ''}…`);
+  for (const id of slipIdsToPrint) {
+    await printSlipById(id);
+  }
 }
 
 async function loadAllLogs() {
@@ -13648,27 +13843,70 @@ function renderLogsPanel(logs, total) {
   const pgBar   = document.getElementById('logs-pg-bar');
   if (!tbody) return;
 
+  // ── Apply per-column search filters ──
+  const colKeys = Object.keys(logColFilters || {}).filter(k => (logColFilters[k] || '').trim().length > 0);
+  let filteredLogs = logs || [];
+  if (colKeys.length > 0) {
+    filteredLogs = (logs || []).filter(log => {
+      const raw      = log.logged_at || '';
+      const datePart = raw.substring(0, 10);
+      const timePart = raw.substring(11, 16);
+      const fmtDt    = (fmtDate(datePart) + ' ' + fmtTime(timePart)).toLowerCase();
+      const rawDt    = raw.toLowerCase();
+
+      const typeRaw  = (log.slip_type || '').toLowerCase();
+      const typePill = typeRaw === 'incoming' ? 'in incoming' : typeRaw === 'outgoing' ? 'out outgoing' : 'sys system';
+
+      const fromCell = [log.from_office, log.from_user].filter(Boolean).join(' · ').toLowerCase();
+      const toCell   = [log.to_office,   log.to_user  ].filter(Boolean).join(' · ').toLowerCase();
+
+      const map = {
+        dateTime:  fmtDt + ' ' + rawDt + ' ' + datePart + ' ' + timePart,
+        type:      typePill,
+        controlNo: (log.control_no || '').toLowerCase(),
+        action:    (log.action || '').toLowerCase(),
+        subject:   (log.subject || '').toLowerCase(),
+        from:      fromCell,
+        to:        toCell,
+        notes:     (log.notes || '').toLowerCase()
+      };
+
+      return colKeys.every(k => {
+        const query = (logColFilters[k] || '').trim().toLowerCase();
+        if (!query) return true;
+        const target = map[k] || '';
+        return target.includes(query);
+      });
+    });
+  }
+
   if (pill)    pill.textContent    = `🗂 ${total.toLocaleString()} entr${total===1?'y':'ies'}`;
-  if (counter) counter.textContent = _logsFilter
-    ? `${logs.length} of ${total} — filtered to ${_logsFilter}`
-    : `${total.toLocaleString()} total entr${total===1?'y':'ies'} — incoming &amp; outgoing`;
+  if (counter) {
+    if (colKeys.length > 0) {
+      counter.textContent = `${filteredLogs.length} of ${logs.length} (column filtered) — ${total.toLocaleString()} total`;
+    } else {
+      counter.textContent = _logsFilter
+        ? `${logs.length} of ${total} — filtered to ${_logsFilter}`
+        : `${total.toLocaleString()} total entr${total===1?'y':'ies'} — incoming &amp; outgoing`;
+    }
+  }
   if (shown)   shown.textContent   = '';
 
-  if (!logs.length) {
+  if (!filteredLogs.length) {
     tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:60px;color:var(--th-text-faint);font-size:.85rem;">
-      ${_logsSearch || _logsFilter ? 'No entries match your search.' : 'No activity yet — save a slip to start logging.'}
+      ${_logsSearch || _logsFilter || colKeys.length ? 'No entries match your search.' : 'No activity yet — save a slip to start logging.'}
     </td></tr>`;
     if (pgBar) pgBar.innerHTML = '';
     return;
   }
 
   // ── Pagination slice ──
-  const totalRows  = logs.length;
+  const totalRows  = filteredLogs.length;
   const totalPages = _logsPageSize === 0 ? 1 : Math.max(1, Math.ceil(totalRows / _logsPageSize));
   if (_logsCurrentPage > totalPages) _logsCurrentPage = totalPages;
   const pageLogs = _logsPageSize === 0
-    ? logs
-    : logs.slice((_logsCurrentPage - 1) * _logsPageSize, _logsCurrentPage * _logsPageSize);
+    ? filteredLogs
+    : filteredLogs.slice((_logsCurrentPage - 1) * _logsPageSize, _logsCurrentPage * _logsPageSize);
 
   // ── Build pagination bar ──
   if (pgBar) pgBar.innerHTML = buildPaginationBar(totalRows, _logsCurrentPage, _logsPageSize, '_goLogsPage', '_setLogsSize');
@@ -13721,15 +13959,20 @@ function renderLogsPanel(logs, total) {
     const fromCell = [log.from_office, log.from_user].filter(Boolean).join(' · ') || '—';
     const toCell   = [log.to_office,   log.to_user  ].filter(Boolean).join(' · ') || '—';
 
-    const isSA = currentAccount?.role === 'super_admin';
+    const canManageLogs = ['super_admin', 'admin', 'receiving'].includes(currentAccount?.role);
     const isPhantom = document.documentElement.getAttribute('data-theme') === 'phantom';
     const accentCol = isPhantom ? '#C8C8C8' : 'var(--th-accent-light)';
     const mutedCol  = isPhantom ? '#909090' : 'var(--th-text-muted)';
     html += `<tr data-log-id="${log.id}">
-      ${isSA ? `<td style="text-align:center;padding:0 4px;"><input type="checkbox" class="log-chk" data-id="${log.id}" onchange="logsUpdateSelCount()" style="cursor:pointer;accent-color:var(--th-accent);width:13px;height:13px;"></td>` : '<td></td>'}
+      ${canManageLogs ? `<td style="text-align:center;padding:0 4px;"><input type="checkbox" class="log-chk" data-id="${log.id}" data-slip-id="${log.slip_id || ''}" data-slip-type="${log.slip_type || ''}" data-control-no="${(log.control_no || '').replace(/"/g, '&quot;')}" onchange="logsUpdateSelCount()" style="cursor:pointer;accent-color:var(--th-accent);width:13px;height:13px;"></td>` : '<td></td>'}
       <td style="${borderStyle}white-space:nowrap;font-size:.82rem;color:var(--th-text-faint);font-family:'Courier New',monospace;">${fmtDate(datePart)||datePart} ${fmtTime(timePart)||timePart}</td>
       <td style="text-align:center;">${typePill}</td>
-      <td style="text-align:center;font-weight:700;font-size:.9rem;color:${accentCol};">${log.control_no || '—'}</td>
+      <td style="text-align:center;font-weight:700;font-size:.9rem;color:${accentCol};white-space:nowrap;">
+        ${log.control_no || '—'}
+        ${canManageLogs && log.slip_type === 'incoming' && (log.slip_id || log.control_no) ? `
+          <button type="button" title="Reprint slip ${log.control_no}" onclick="event.stopPropagation();logsReprintOne('${log.slip_id || ''}','${(log.control_no||'').replace(/'/g, "\\'")}')" style="background:transparent;border:none;cursor:pointer;font-size:.78rem;margin-left:4px;padding:1px 3px;color:var(--th-accent);border-radius:2px;vertical-align:middle;display:inline-flex;align-items:center;" onmouseover="this.style.background='var(--th-accent-dim)'" onmouseout="this.style.background='transparent'">🖨</button>
+        ` : ''}
+      </td>
       <td style="text-align:center;"><span class="log-action-badge ${cfg.cls}">${icon} ${log.action}</span></td>
       <td title="${(log.subject||'').replace(/"/g,'&quot;')}" style="font-size:.9rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${log.subject || '—'}</td>
       <td style="font-size:.84rem;color:${mutedCol};">${fromCell}</td>
@@ -13739,6 +13982,12 @@ function renderLogsPanel(logs, total) {
   });
 
   tbody.innerHTML = html;
+  const master = document.getElementById('logs-master-chk');
+  if (master) {
+    master.style.display = canManageLogs ? 'inline-block' : 'none';
+    master.checked = false;
+  }
+  logsUpdateSelCount();
 }
 
 // ── Start/stop auto-refresh when view is active ────────────
@@ -13881,7 +14130,8 @@ function exportLogsExcel() {
   document.querySelectorAll('#logs-tbody tr').forEach(tr => {
     const cells = tr.querySelectorAll('td');
     if (cells.length < 8) return; // skip separator rows
-    rows.push(Array.from(cells).map(td => td.textContent.trim()));
+    const rowCells = cells.length > 8 ? Array.from(cells).slice(cells.length - 8) : Array.from(cells);
+    rows.push(rowCells.map(td => td.textContent.trim()));
   });
   if (!rows.length) { showToast('⚠ No log data to export'); return; }
   let csv = headers.map(h => `"${h}"`).join(',') + '\n';
@@ -13969,9 +14219,12 @@ function onLoginSuccess() {
   // Always (re)load routable accounts after login so _allRoutableAccounts is populated
   buildRouteRow().catch(() => null);
 
-  // Show super admin logs toolbar if applicable
+  // Show logs toolbar for super admin, admin and receiving
   const saToolbar = document.getElementById('logs-sa-toolbar');
-  if (saToolbar) saToolbar.style.display = currentAccount.role === 'super_admin' ? 'flex' : 'none';
+  if (saToolbar) {
+    const canToolbar = ['super_admin', 'admin', 'receiving'].includes(currentAccount.role);
+    saToolbar.style.display = canToolbar ? 'flex' : 'none';
+  }
 
   const role = currentAccount.role;
 
@@ -14269,6 +14522,10 @@ const _SS = {
   saveLogsState(filter, search) { this.save('logs', { filter, search }); },
   loadLogsState()               { return this.load('logs', { filter: '', search: '' }); },
 
+  // Logs column search filters
+  saveLogColSearch(filters) { this.save('log_col_search', filters); },
+  loadLogColSearch()        { return this.load('log_col_search', {}); },
+
   // Collapsed year groups (Set → Array)
   saveCollapsed(key, set)  { this.save('collapsed_' + key, [...set]); },
   loadCollapsed(key)       { return new Set(this.load('collapsed_' + key, [])); },
@@ -14421,6 +14678,18 @@ function _restoreOutSearchFilters() {
   });
 }
 
+function _restoreLogColFilters() {
+  const saved = _SS.loadLogColSearch();
+  if (!saved || !Object.keys(saved).length) return;
+  logColFilters = saved;
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.th-search-log').forEach(inp => {
+      const col = inp.dataset.col;
+      if (saved[col]) inp.value = saved[col];
+    });
+  });
+}
+
 // ── Restore logs filter/search ────────────────────────────
 function _restoreLogsState() {
   const { filter, search } = _SS.loadLogsState();
@@ -14441,6 +14710,7 @@ function _restoreLogsState() {
       if (inp) inp.value = search;
     });
   }
+  _restoreLogColFilters();
 }
 
 // ── Flag: are we in the middle of a restore-on-refresh? ──
@@ -15417,7 +15687,8 @@ function toggleNotifMenu(slipId, e) {
   const btn  = e.currentTarget;
   const rect = btn.getBoundingClientRect();
   const ctrl = btn.dataset.ctrl || '';
-  const subj = btn.dataset.subj || '';
+  const role = currentAccount?.role || 'user';
+  const canReprint = ['super_admin', 'admin', 'receiving'].includes(role);
 
   const menu = document.createElement('div');
   menu.id = 'notif-float-menu';
@@ -15428,6 +15699,10 @@ function toggleNotifMenu(slipId, e) {
     <div class="notif-dots-item" onclick="notifRouteTo(${slipId},'${ctrl}','${subj}');document.getElementById('notif-float-menu')?.remove()">
       <span class="ndi-icon">🔄</span> Route To
     </div>
+    ${canReprint ? `
+    <div class="notif-dots-item" onclick="printSlipById(${slipId});document.getElementById('notif-float-menu')?.remove()">
+      <span class="ndi-icon">🖨</span> Reprint Slip
+    </div>` : ''}
     <div class="notif-dots-item" onclick="notifReturnFromMenu(${slipId});document.getElementById('notif-float-menu')?.remove()">
       <span class="ndi-icon">↩</span> Return
     </div>
@@ -15463,6 +15738,9 @@ function toggleReturnedActionMenu(slipId, ctrl, subj, e) {
     items += `
     <div class="notif-dots-item" onclick="editSlipFromNotif(${slipId});document.getElementById('notif-float-menu')?.remove()">
       <span class="ndi-icon">✏️</span> Edit
+    </div>
+    <div class="notif-dots-item" onclick="printSlipById(${slipId});document.getElementById('notif-float-menu')?.remove()">
+      <span class="ndi-icon">🖨</span> Reprint Slip
     </div>`;
   }
   if (role === 'admin' || role === 'super_admin') {
