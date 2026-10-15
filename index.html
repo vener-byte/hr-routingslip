@@ -9730,25 +9730,31 @@ let routeDropOpen   = false;
 
 let _allRoutableAccounts = []; // user + executive + receiving (for 3-dot Route To)
 
+let _routeLoadErr = '', _routeRetryTimer = null;
 async function buildRouteRow() {
+  const role = currentAccount?.role || '';
+  const isAdmin = role === 'admin' || role === 'super_admin';
   try {
-    const role = currentAccount?.role || '';
-    const isAdmin = role === 'admin' || role === 'super_admin';
-
+    // Admins use get_accounts (full list); everyone else uses the public-accessible endpoint
+    const res = await fetch(`${API_URL}?action=${isAdmin ? 'get_accounts' : 'get_routable_accounts'}`, { credentials: 'include' });
+    const all = await res.json();
+    // an error / offline answer is NOT a list — never let it wipe a good list
+    if (!Array.isArray(all)) throw new Error((all && all.error) || 'Could not load the accounts');
     if (isAdmin) {
-      // Admins use get_accounts (full list) for the New Slip dropdown
-      const res = await fetch(`${API_URL}?action=get_accounts`, { credentials: 'include' });
-      const all = await res.json();
-      _routeAccounts     = all.filter(a => a.role === 'user' || a.role === 'executive');
+      _routeAccounts       = all.filter(a => a.role === 'user' || a.role === 'executive');
       _allRoutableAccounts = all.filter(a => ['user','executive','receiving'].includes(a.role));
     } else {
-      // Non-admins use the public-accessible endpoint
-      const res = await fetch(`${API_URL}?action=get_routable_accounts`, { credentials: 'include' });
-      const all = await res.json();
       _routeAccounts       = all.filter(a => a.role === 'user' || a.role === 'executive');
       _allRoutableAccounts = all; // already filtered server-side to user+executive+receiving
     }
-  } catch(e) { _routeAccounts = []; _allRoutableAccounts = []; }
+    _routeLoadErr = '';
+  } catch(e) {
+    _routeLoadErr = (e && e.message) || 'Could not load the accounts';
+    // keep whatever list we already had, and try again shortly (only once signed in)
+    if (currentAccount && !_routeRetryTimer) {
+      _routeRetryTimer = setTimeout(() => { _routeRetryTimer = null; buildRouteRow().catch(() => null); }, 4000);
+    }
+  }
   _routeFiltered = _routeAccounts;
   renderRouteList(_routeFiltered);
 }
@@ -9757,7 +9763,9 @@ function renderRouteList(accounts) {
   const list = document.getElementById('routeto-list');
   if (!list) return;
   if (!accounts.length) {
-    list.innerHTML = '<div style="padding:12px;text-align:center;color:var(--th-text-faint);font-size:.78rem;">No accounts found</div>';
+    list.innerHTML = _routeLoadErr
+      ? `<div onclick="buildRouteRow()" style="padding:12px;text-align:center;color:var(--th-text-faint);font-size:.78rem;cursor:pointer;">⚠ Could not load accounts (${String(_routeLoadErr).replace(/</g,'&lt;')}).<br>Retrying… click here to retry now.</div>`
+      : '<div style="padding:12px;text-align:center;color:var(--th-text-faint);font-size:.78rem;">No accounts found</div>';
     return;
   }
   list.innerHTML = accounts.map(a => {
@@ -9829,6 +9837,7 @@ function toggleRouteDropdown() {
     document.getElementById('routeto-search').value = '';
     _routeFiltered = _routeAccounts;
     renderRouteList(_routeFiltered);
+    buildRouteRow().catch(() => null);   // refresh in the background (picks up newly created accounts)
     setTimeout(() => document.getElementById('routeto-search').focus(), 50);
   }
 }
