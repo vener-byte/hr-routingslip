@@ -7088,6 +7088,7 @@ html[data-theme="phantom"] #rs-login {
   padding: 10px 12px 10px 38px;
   outline: none;
   transition: border-color .2s, box-shadow .2s;
+  text-transform: uppercase;
 }
 #rs-login .inp:focus {
   border-color: var(--accent);
@@ -7520,7 +7521,7 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
 
   <!-- Username -->
   <div class="field">
-    <label for="rsl-user">Username</label>
+    <label for="rsl-user">Username <span style="font-size:.62rem;color:var(--text-faint);font-weight:400;">(ALL CAPITAL LETTERS)</span></label>
     <div class="field-wrap">
       <span class="field-icon">👤</span>
       <input class="inp" type="text" id="rsl-user"
@@ -7533,11 +7534,12 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
 
   <!-- Password -->
   <div class="field">
-    <label for="rsl-pass">Password</label>
+    <label for="rsl-pass">Password <span style="font-size:.62rem;color:var(--text-faint);font-weight:400;">(ALL CAPITAL LETTERS)</span></label>
     <div class="field-wrap">
       <span class="field-icon">🔒</span>
       <input class="inp" type="password" id="rsl-pass"
              autocomplete="current-password" placeholder="ENTER YOUR PASSWORD"
+             style="text-transform:uppercase"
              oninput="this.value=this.value.toUpperCase()"
              onkeydown="if(event.key==='Enter')rsLoginSubmit()"/>
       <button class="toggle-pw" type="button" onclick="rsLoginTogglePw()" id="rsl-tgl" title="Show/hide password">👁</button>
@@ -8498,8 +8500,8 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
     <input type="hidden" id="am-edit-id"/>
     <div class="g2" style="margin-bottom:12px;">
       <div class="field">
-        <label>USERNAME <span style="font-size:.55rem;color:var(--th-text-faint);letter-spacing:.04em;font-weight:400;">(auto-uppercased)</span></label>
-        <input id="am-username" type="text" placeholder="LOGIN NAME (no spaces)"
+        <label>USERNAME <span style="font-size:.55rem;color:var(--th-text-faint);letter-spacing:.04em;font-weight:400;">(ALL CAPITAL LETTERS)</span></label>
+        <input id="am-username" type="text" placeholder="LOGIN NAME (NO SPACES)"
                style="text-transform:uppercase"
                oninput="this.value=this.value.toUpperCase()"/>
       </div>
@@ -8514,21 +8516,30 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
       </div>
     </div>
     <div class="field" style="margin-bottom:12px;">
-      <label>FULL NAME</label>
-      <input id="am-fullname" type="text" placeholder="Display name"/>
+      <label>FULL NAME <span style="font-size:.55rem;color:var(--th-text-faint);letter-spacing:.04em;font-weight:400;">(ALL CAPITAL LETTERS)</span></label>
+      <input id="am-fullname" type="text" placeholder="DISPLAY NAME"
+             style="text-transform:uppercase"
+             oninput="this.value=this.value.toUpperCase()"/>
     </div>
     <div class="g2" style="margin-bottom:12px;">
-      <div class="field"><label>OFFICE / SECTION</label><input id="am-office" type="text" placeholder="e.g. HR, ADMIN" style="text-transform:uppercase"/></div>
-      <div class="field"><label>DIVISION</label><input id="am-division" type="text" placeholder="e.g. Records Division"/></div>
+      <div class="field"><label>OFFICE / SECTION</label><input id="am-office" type="text" placeholder="E.G. HR, ADMIN" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"/></div>
+      <div class="field"><label>DIVISION</label><input id="am-division" type="text" placeholder="E.G. RECORDS DIVISION" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"/></div>
     </div>
     <div class="field" style="margin-bottom:12px;">
       <label>POSITION</label>
-      <input id="am-position" type="text" placeholder="Job title / position"/>
+      <input id="am-position" type="text" placeholder="JOB TITLE / POSITION"
+             style="text-transform:uppercase"
+             oninput="this.value=this.value.toUpperCase()"/>
     </div>
     <div class="field" style="margin-bottom:6px;">
-      <label id="am-pass-lbl">PASSWORD <span style="font-size:.55rem;color:var(--th-text-faint);font-weight:400;">(auto-uppercased)</span></label>
-      <input id="am-password" type="password" placeholder="Minimum 6 characters" oninput="this.value=this.value.toUpperCase()"
-             oninput="this.value=this.value.toUpperCase()"/>
+      <label id="am-pass-lbl">PASSWORD <span style="font-size:.55rem;color:var(--th-text-faint);font-weight:400;">(ALL CAPITAL LETTERS)</span></label>
+      <div style="position:relative;display:flex;align-items:center;">
+        <input id="am-password" type="password" placeholder="MINIMUM 6 CHARACTERS"
+               style="text-transform:uppercase;width:100%;padding-right:34px;"
+               oninput="this.value=this.value.toUpperCase()"/>
+        <button type="button" onclick="amTogglePw()" id="am-tgl" title="Show/hide password"
+                style="position:absolute;right:6px;background:none;border:none;cursor:pointer;font-size:1rem;color:var(--th-text-muted);padding:2px 4px;">👁</button>
+      </div>
     </div>
     <div id="am-pass-hint" style="font-size:.6rem;color:var(--th-text-faint);margin-bottom:16px;">(Leave blank when editing to keep current password)</div>
     <div id="am-error" style="display:none;color:var(--th-red-text);font-size:.7rem;margin-bottom:10px;"></div>
@@ -8900,7 +8911,10 @@ function hashPw(pw, salt) { return salt + '$' + sha256(salt + ':' + pw); }
 function checkPw(pw, stored) {
   const i = String(stored).indexOf('$');
   if (i < 0) return false;
-  return hashPw(pw, stored.slice(0, i)) === stored;
+  const salt = stored.slice(0, i);
+  if (hashPw(pw, salt) === stored) return true;
+  if (hashPw(pw.toLowerCase(), salt) === stored) return true;
+  return false;
 }
 
 /* ── tiny helpers ──────────────────────────────────────────────────── */
@@ -8998,8 +9012,8 @@ function seedAdmin() {
   const salt = newSalt();
   state.accounts.push({
     id: nextId('account'), username: 'ADMIN', password_hash: hashPw('ADMIN', salt),
-    full_name: 'Super Administrator', office_code: 'ADMIN', division: '',
-    position: 'System Super Admin', role: 'super_admin', is_active: 1, created_at: nowStr()
+    full_name: 'SUPER ADMINISTRATOR', office_code: 'ADMIN', division: '',
+    position: 'SYSTEM SUPER ADMIN', role: 'super_admin', is_active: 1, created_at: nowStr()
   });
   touch();
 }
@@ -9009,6 +9023,17 @@ async function loadState() {
   if (state && rev !== undefined && rev === stateRev) return state;
   state = (await kvGet('state')) || freshState();
   stateRev = rev;
+  if (state.accounts && Array.isArray(state.accounts)) {
+    let touched = false;
+    state.accounts.forEach(a => {
+      if (a.username && a.username !== up(a.username)) { a.username = up(a.username); touched = true; }
+      if (a.full_name && a.full_name !== up(a.full_name)) { a.full_name = up(a.full_name); touched = true; }
+      if (a.office_code && a.office_code !== up(a.office_code)) { a.office_code = up(a.office_code); touched = true; }
+      if (a.division && a.division !== up(a.division)) { a.division = up(a.division); touched = true; }
+      if (a.position && a.position !== up(a.position)) { a.position = up(a.position); touched = true; }
+    });
+    if (touched) touch();
+  }
   seedAdmin();
   return state;
 }
@@ -9141,9 +9166,15 @@ const H = {};
 H.login = async ({ data }) => {
   const uname = up(data.username);
   const pass  = up(data.password);
-  const acc = state.accounts.find(a => a.username === uname);
+  const acc = state.accounts.find(a => up(a.username) === uname);
   if (!acc || !checkPw(pass, acc.password_hash)) return { success: false, error: 'Invalid username or password.' };
   if (!acc.is_active) return { success: false, error: 'This account is inactive. Please contact your administrator.' };
+  const salt = String(acc.password_hash).split('$')[0];
+  if (hashPw(pass, salt) !== acc.password_hash) {
+    acc.password_hash = hashPw(pass, newSalt());
+    touch();
+  }
+  acc.username = up(acc.username);
   const session = { id: acc.id, username: acc.username, full_name: acc.full_name, office_code: acc.office_code,
                     division: acc.division, position: acc.position, role: acc.role };
   setSession(session);
@@ -9173,15 +9204,15 @@ H.get_accounts = async () => {
 H.save_account = async ({ data }) => {
   requireAdminOrAbove();
   const uname = up(S(data.username).trim());
-  const fname = S(data.full_name).trim();
+  const fname = up(S(data.full_name).trim());
   const ocode = up(S(data.office_code).trim());
-  const div   = S(data.division).trim();
-  const pos   = S(data.position).trim();
+  const div   = up(S(data.division).trim());
+  const pos   = up(S(data.position).trim());
   const pass  = up(data.password);
   const role  = allowedRoles().includes(data.role) ? data.role : 'user';
   if (!uname || !fname || !pass) return { error: 'Username, name and password required.' };
   if (pass.length < 6) return { error: 'Password must be at least 6 characters.' };
-  if (state.accounts.some(a => a.username === uname)) return { error: 'Username already exists.' };
+  if (state.accounts.some(a => up(a.username) === uname)) return { error: 'Username already exists.' };
   const id = nextId('account');
   state.accounts.push({ id, username: uname, password_hash: hashPw(pass, newSalt()), full_name: fname,
     office_code: ocode, division: div, position: pos, role, is_active: 1, created_at: nowStr() });
@@ -9201,10 +9232,10 @@ H.update_account = async ({ data }) => {
     newHash = hashPw(pw, newSalt());
   }
   if (acc) {
-    acc.full_name   = S(data.full_name).trim();
+    acc.full_name   = up(S(data.full_name).trim());
     acc.office_code = up(S(data.office_code).trim());
-    acc.division    = S(data.division).trim();
-    acc.position    = S(data.position).trim();
+    acc.division    = up(S(data.division).trim());
+    acc.position    = up(S(data.position).trim());
     acc.role        = role;
     acc.is_active   = toInt(data.is_active === undefined ? 1 : data.is_active) ? 1 : 0;
     if (newHash) acc.password_hash = newHash;
@@ -16466,11 +16497,31 @@ async function markNotifAcknowledged(slipId, ctrlNo) {
 // ══════════════════════════════════════════════════════════
 
 
+function amTogglePw() {
+  const i = document.getElementById('am-password');
+  const b = document.getElementById('am-tgl');
+  if (!i || !b) return;
+  if (i.type === 'password') {
+    i.type = 'text';
+    b.textContent = '🙈';
+    b.title = 'Hide password';
+  } else {
+    i.type = 'password';
+    b.textContent = '👁';
+    b.title = 'Show password';
+  }
+}
+
 function openAccModal(editId) {
   const modal = document.getElementById('acc-modal-bg');
   const title = document.getElementById('acc-modal-title');
   const hint  = document.getElementById('am-pass-hint');
   document.getElementById('am-error').style.display = 'none';
+
+  const pwInput = document.getElementById('am-password');
+  const pwTgl   = document.getElementById('am-tgl');
+  if (pwInput) pwInput.type = 'password';
+  if (pwTgl) { pwTgl.textContent = '👁'; pwTgl.title = 'Show password'; }
 
   // Show/hide super_admin option based on current user role
   // Super Admin option: only super_admin can create another super_admin
@@ -16490,13 +16541,13 @@ function openAccModal(editId) {
     if (!acc) return;
     title.textContent = 'EDIT ACCOUNT';
     document.getElementById('am-edit-id').value     = acc.id;
-    document.getElementById('am-username').value    = acc.username;
+    document.getElementById('am-username').value    = (acc.username || '').toUpperCase();
     document.getElementById('am-username').disabled = true;
     document.getElementById('am-role').value        = acc.role;
-    document.getElementById('am-fullname').value    = acc.full_name;
-    document.getElementById('am-office').value      = acc.office_code;
-    document.getElementById('am-division').value    = acc.division || '';
-    document.getElementById('am-position').value    = acc.position;
+    document.getElementById('am-fullname').value    = (acc.full_name || '').toUpperCase();
+    document.getElementById('am-office').value      = (acc.office_code || '').toUpperCase();
+    document.getElementById('am-division').value    = (acc.division || '').toUpperCase();
+    document.getElementById('am-position').value    = (acc.position || '').toUpperCase();
     document.getElementById('am-password').value    = '';
     document.getElementById('am-pass-lbl').textContent = 'NEW PASSWORD (optional)';
     hint.style.display = '';
@@ -16527,10 +16578,10 @@ async function saveAccModal() {
   const editId   = document.getElementById('am-edit-id').value;
   const username = document.getElementById('am-username').value.trim().toUpperCase();
   const role     = document.getElementById('am-role').value;
-  const fullName = document.getElementById('am-fullname').value.trim();
+  const fullName = document.getElementById('am-fullname').value.trim().toUpperCase();
   const office   = document.getElementById('am-office').value.trim().toUpperCase();
-  const division = document.getElementById('am-division').value.trim();
-  const position = document.getElementById('am-position').value.trim();
+  const division = document.getElementById('am-division').value.trim().toUpperCase();
+  const position = document.getElementById('am-position').value.trim().toUpperCase();
   const password = document.getElementById('am-password').value.toUpperCase();
 
   if (!fullName) { errEl.textContent='Full name is required.'; errEl.style.display=''; return; }
