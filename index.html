@@ -10355,10 +10355,10 @@ function buildPrintHTML() {
     const rOn = i < 3 ? docTypes.has(DOC_RIGHT[i]) : docTypes.has('Others');
     const rLabel = i < 3 ? DOC_RIGHT[i] : `Others : <span style="font-weight:bold">${v('othersText')}</span>`;
     dtRows += `<tr>
-      <td style="width:7%;text-align:center;border:none;padding:2px 6px;vertical-align:bottom">${lineBox(lOn)}</td>
-      <td style="font-family:'Century Gothic','Trebuchet MS',sans-serif;width:43%;font-size:11px;border:none;padding:2px 6px;vertical-align:bottom">${DOC_LEFT[i]}</td>
-      <td style="width:7%;text-align:center;border:none;padding:2px 6px;vertical-align:bottom">${lineBox(rOn)}</td>
-      <td style="font-family:'Century Gothic','Trebuchet MS',sans-serif;font-size:11px;border:none;padding:2px 6px;vertical-align:bottom">${rLabel}</td>
+      <td style="width:7%;text-align:center;border:none;padding:2px 6px;vertical-align:top">${lineBox(lOn)}</td>
+      <td style="font-family:'Century Gothic','Trebuchet MS',sans-serif;width:43%;font-size:11px;border:none;padding:2px 6px;vertical-align:top">${DOC_LEFT[i]}</td>
+      <td style="width:7%;text-align:center;border:none;padding:2px 6px;vertical-align:top">${lineBox(rOn)}</td>
+      <td style="font-family:'Century Gothic','Trebuchet MS',sans-serif;font-size:11px;border:none;padding:2px 6px;vertical-align:top;word-break:break-word">${rLabel}</td>
     </tr>`;
   }
 
