@@ -6574,28 +6574,207 @@ html[data-theme="phantom"] #view-outgoing .records-wrap::after {
   letter-spacing: .06em; padding: 0 4px; min-width: 30px; text-align: center;
 }
 
-/* Chat box */
-.dash-chat-wrap {
+/* ════════════ FLOATING TEAM CHAT (FACEBOOK / MESSENGER STYLE) ════════════ */
+#floating-chat-window,
+#floating-chat-pill {
+  display: none !important;
+}
+html.rs-authed #floating-chat-window:not(.hidden) {
+  display: flex !important;
+}
+html.rs-authed #floating-chat-pill:not(.hidden) {
+  display: flex !important;
+}
+
+/* Floating Launcher Pill (bottom-right when chat is closed) */
+#floating-chat-pill {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  height: 46px;
+  padding: 0 18px 0 14px;
+  border-radius: 23px;
+  background: var(--th-bg-card);
+  border: 1.5px solid var(--th-accent);
+  color: var(--th-accent);
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.65), 0 0 16px rgba(207,181,59,0.25);
+  z-index: 2500;
+  transition: all .22s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+#floating-chat-pill:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: var(--th-bg);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.75), 0 0 24px var(--th-accent);
+}
+.floating-chat-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+.floating-chat-label {
+  font-size: .84rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--th-accent);
+}
+.floating-chat-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  display: inline-block;
+  animation: rs-chat-dot-breathe 2s infinite;
+}
+.floating-chat-badge {
+  background: #ef4444;
+  color: #ffffff;
+  font-size: .68rem;
+  font-weight: 800;
+  min-width: 19px;
+  height: 19px;
+  border-radius: 10px;
+  padding: 0 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.6);
+  animation: rs-chat-badge-bounce 1.6s infinite;
+}
+.floating-chat-badge.hidden {
+  display: none !important;
+}
+
+/* Floating Chat Window (docked at bottom right) */
+#floating-chat-window {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  width: 360px;
+  height: 480px;
+  max-width: calc(100vw - 36px);
+  max-height: calc(100vh - 80px);
+  background: var(--th-bg-card);
+  border: 1px solid var(--th-border);
+  border-top: 3px solid var(--th-accent);
+  border-radius: 12px 12px 6px 6px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.7), 0 0 1px rgba(255,255,255,0.15);
+  flex-direction: column;
+  z-index: 2500;
+  overflow: hidden;
+  transition: height .25s cubic-bezier(0.16, 1, 0.3, 1), transform .22s ease, opacity .2s ease;
+  transform-origin: bottom right;
+}
+
+#floating-chat-window.minimized {
+  height: 44px !important;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+}
+#floating-chat-window.minimized .floating-chat-body {
+  display: none !important;
+}
+
+/* Header bar */
+.floating-chat-header {
+  height: 44px;
+  background: var(--th-bg-deep);
+  border-bottom: 1px solid var(--th-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+.floating-chat-header:hover {
+  background: var(--th-bg-card);
+}
+.floating-chat-hdr-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.floating-chat-title {
+  font-size: .86rem;
+  font-weight: 700;
+  color: var(--th-accent);
+  letter-spacing: .03em;
+  white-space: nowrap;
+}
+.floating-chat-status {
+  font-size: .68rem;
+  color: var(--th-text-muted, #8e8e9f);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.floating-chat-hdr-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.floating-chat-ctrl-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: var(--th-text-muted, #8e8e9f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .15s;
+}
+.floating-chat-ctrl-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--th-accent);
+}
+.floating-chat-ctrl-btn.close:hover {
+  background: rgba(239,68,68,0.2);
+  color: #ef4444;
+}
+
+/* Chat Body (Message stream + input row) */
+.floating-chat-body {
   flex: 1;
   display: flex;
   flex-direction: column;
   min-height: 0;
+  background: var(--th-bg);
 }
+
 .dash-chat-messages {
   flex: 1;
   overflow-y: auto;
-  padding: 10px 14px;
+  padding: 14px 14px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
+.dash-chat-messages::-webkit-scrollbar {
+  width: 5px;
+}
+.dash-chat-messages::-webkit-scrollbar-thumb {
+  background: var(--th-border);
+  border-radius: 3px;
+}
+
 .dash-chat-bubble {
   max-width: 82%;
-  padding: 7px 12px;
-  border-radius: 8px;
-  font-size: .75rem;
-  line-height: 1.4;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: .78rem;
+  line-height: 1.45;
   word-wrap: break-word;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 .dash-chat-bubble.me {
   align-self: flex-end;
@@ -6605,27 +6784,41 @@ html[data-theme="phantom"] #view-outgoing .records-wrap::after {
 }
 .dash-chat-bubble.other {
   align-self: flex-start;
-  background: var(--th-bg-deep);
+  background: var(--th-bg-card);
   color: var(--th-text-primary);
+  border: 1px solid var(--th-border);
   border-bottom-left-radius: 2px;
 }
 .dash-chat-sender {
-  font-size: .58rem;
+  font-size: .62rem;
   font-weight: 700;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   color: var(--th-accent-light);
 }
-.dash-chat-bubble.me .dash-chat-sender { color: var(--th-bg); }
+.dash-chat-bubble.me .dash-chat-sender {
+  color: rgba(0,0,0,0.65);
+}
 .dash-chat-time {
-  font-size: .5rem;
-  opacity: .6;
-  margin-top: 2px;
+  font-size: .56rem;
+  opacity: .65;
+  margin-top: 4px;
   text-align: right;
 }
+
+.dash-empty {
+  margin: auto;
+  text-align: center;
+  color: var(--th-text-muted, #8e8e9f);
+  font-size: .78rem;
+  padding: 20px;
+}
+
+/* Input Row */
 .dash-chat-input-row {
   display: flex;
-  gap: 6px;
-  padding: 8px 12px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
   border-top: 1px solid var(--th-border);
   background: var(--th-bg-card);
   flex-shrink: 0;
@@ -6634,30 +6827,62 @@ html[data-theme="phantom"] #view-outgoing .records-wrap::after {
   flex: 1;
   background: var(--th-bg);
   border: 1px solid var(--th-border);
-  border-radius: 3px;
+  border-radius: 6px;
   color: var(--th-text-primary);
   font-family: inherit;
-  font-size: .78rem;
-  padding: 7px 10px;
+  font-size: .8rem;
+  padding: 8px 12px;
   outline: none;
-  transition: border-color .15s;
+  transition: border-color .15s, box-shadow .15s;
 }
-.dash-chat-input:focus { border-color: var(--th-accent); }
+.dash-chat-input:focus {
+  border-color: var(--th-accent);
+  box-shadow: 0 0 8px rgba(207,181,59,0.25);
+}
 .dash-chat-send {
   background: var(--th-accent);
   color: var(--th-bg-deep);
   border: none;
-  border-radius: 3px;
-  padding: 7px 16px;
+  border-radius: 6px;
+  padding: 8px 16px;
   font-family: inherit;
-  font-size: .72rem;
+  font-size: .74rem;
   font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background .15s;
+  transition: background .15s, transform .1s;
 }
-.dash-chat-send:hover { background: var(--th-accent-light); }
+.dash-chat-send:hover {
+  background: var(--th-accent-light);
+  transform: translateY(-1px);
+}
+.dash-chat-send:active {
+  transform: translateY(0);
+}
+
+@keyframes rs-chat-dot-breathe {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+@keyframes rs-chat-badge-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@media (max-width: 600px) {
+  #floating-chat-window {
+    width: calc(100vw - 24px) !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    max-height: 75vh !important;
+  }
+  #floating-chat-pill {
+    right: 16px !important;
+    bottom: 16px !important;
+  }
+}
+
 
 /* Misty theme overrides */
 
@@ -7503,8 +7728,121 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
 .nav-brand { flex-direction: row !important; align-items: center; gap: 11px; }
 .nav-brand .nav-logo { width: 42px; height: 42px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.45)); }
 .nav-brand .nav-brand-text { display: flex; flex-direction: column; min-width: 0; }
-#rs-login .brand-logo { width: 104px; height: 104px; margin: 0 auto 8px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); }
+#rs-login .brand-logo { width: 104px; height: 104px; margin: 0 auto 8px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.65)) drop-shadow(0 0 10px var(--th-accent, #CFB53B)); transition: filter .3s ease; }
+#rs-login .brand-logo:hover { filter: drop-shadow(0 8px 18px rgba(0,0,0,.8)) drop-shadow(0 0 20px var(--th-accent, #CFB53B)); }
 @media (max-width: 700px) { .nav-brand .nav-logo { width: 32px; height: 32px; } .nav-brand { gap: 8px; } }
+
+/* ── CIRCLING ORBITAL RING & DARK GOLD GLOW ANIMATIONS ── */
+@keyframes rs-spin-ring {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes rs-spin-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes rs-glow-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.22);
+    opacity: 0.85;
+  }
+}
+@keyframes rs-icon-breathe {
+  0% {
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.65))
+            drop-shadow(0 0 10px var(--th-accent, #CFB53B));
+    transform: scale(0.98);
+  }
+  100% {
+    filter: drop-shadow(0 8px 20px rgba(0,0,0,0.85))
+            drop-shadow(0 0 22px var(--th-accent, #CFB53B))
+            drop-shadow(0 0 45px var(--th-accent, #CFB53B));
+    transform: scale(1.02);
+  }
+}
+@keyframes rs-text-pulse {
+  0% { opacity: 0.65; text-shadow: 0 0 8px var(--th-accent, #CFB53B); }
+  100% { opacity: 1; text-shadow: 0 0 16px var(--th-accent, #CFB53B), 0 0 28px var(--th-accent, #CFB53B); }
+}
+
+.rs-loader-container {
+  position: relative;
+  width: 156px;
+  height: 156px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rs-glow-aura {
+  position: absolute;
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--th-accent, #CFB53B) 0%, transparent 72%);
+  filter: blur(14px);
+  animation: rs-glow-pulse 2.4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.rs-loader-ring {
+  position: absolute;
+  width: 142px;
+  height: 142px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: var(--th-accent, #CFB53B);
+  border-right-color: var(--th-accent, #CFB53B);
+  opacity: 0.85;
+  box-shadow: 0 0 14px var(--th-accent, #CFB53B);
+  animation: rs-spin-ring 1.8s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+  pointer-events: none;
+}
+.rs-loader-ring-outer {
+  position: absolute;
+  width: 154px;
+  height: 154px;
+  border-radius: 50%;
+  border: 1px dashed var(--th-accent, #CFB53B);
+  opacity: 0.35;
+  animation: rs-spin-reverse 6s linear infinite;
+  pointer-events: none;
+}
+.rs-orbit-particle {
+  position: absolute;
+  width: 142px;
+  height: 142px;
+  animation: rs-spin-ring 1.8s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+  pointer-events: none;
+}
+.rs-orbit-particle-dot {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--th-accent, #CFB53B);
+  box-shadow: 0 0 8px var(--th-accent, #CFB53B), 0 0 16px #fff;
+}
+.rs-logo-glow {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  z-index: 2;
+  animation: rs-icon-breathe 2.4s ease-in-out infinite alternate;
+}
+.rs-loader-text {
+  font-size: .74rem;
+  font-weight: 700;
+  color: var(--th-accent, #CFB53B);
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  animation: rs-text-pulse 2s ease-in-out infinite alternate;
+}
 </style>
 </head>
 <body>
@@ -7567,9 +7905,17 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
 <div class="toast hidden" id="toast">✓ Routing slip saved</div>
 
 <!-- Session-check loading overlay — hidden once verified -->
-<div id="session-check-overlay" style="position:fixed;inset:0;background:var(--th-bg-deep);z-index:3000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;">
-  <span class="rs-logo" role="img" aria-label="Routing Slip" style="width:112px;height:112px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45));"></span>
-  <div style="font-size:.65rem;color:var(--th-text-faint);letter-spacing:.18em;text-transform:uppercase;">Loading…</div>
+<div id="session-check-overlay" style="position:fixed;inset:0;background:var(--th-bg-deep);z-index:3000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px;">
+  <div class="rs-loader-container">
+    <div class="rs-glow-aura"></div>
+    <div class="rs-loader-ring"></div>
+    <div class="rs-loader-ring-outer"></div>
+    <div class="rs-orbit-particle">
+      <div class="rs-orbit-particle-dot"></div>
+    </div>
+    <span class="rs-logo rs-logo-glow" role="img" aria-label="Routing Slip"></span>
+  </div>
+  <div class="rs-loader-text" id="rs-loader-text-el">LOADING...</div>
 </div>
 
 <!-- ════════════ NAV (visible after session verified) ════════════ -->
@@ -7757,8 +8103,8 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
         <div class="dash-chart-wrap"><canvas id="chart-monthly-volume"></canvas></div>
       </div>
 
-      <!-- Chart 3: Top Source Offices (Horizontal Bar) -->
-      <div class="dash-card dash-chart-card">
+      <!-- Chart 3: Top Source Offices (Horizontal Bar) - Full 2-column width -->
+      <div class="dash-card dash-chart-card" style="grid-column: 1 / -1;">
         <div class="dash-card-head">
           <span class="dash-card-title">Top Source Offices</span>
           <div class="dash-period-btns" id="period-offices">
@@ -7769,24 +8115,6 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
           </div>
         </div>
         <div class="dash-chart-wrap"><canvas id="chart-top-offices"></canvas></div>
-      </div>
-
-      <!-- Chat Box -->
-      <div class="dash-card dash-chart-card" id="dash-chat-card">
-        <div class="dash-card-head">
-          <span class="dash-card-title">Team Chat</span>
-          <span class="dash-chart-year" id="chat-online-count"></span>
-        </div>
-        <div class="dash-chat-wrap">
-          <div class="dash-chat-messages" id="dash-chat-messages">
-            <div class="dash-empty">Loading messages…</div>
-          </div>
-          <div class="dash-chat-input-row">
-            <input type="text" id="dash-chat-input" class="dash-chat-input" placeholder="Type a message…"
-              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg();}"/>
-            <button class="dash-chat-send" onclick="sendChatMsg()">Send</button>
-          </div>
-        </div>
       </div>
 
     </div>
@@ -7887,20 +8215,37 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
 
       <!-- Attachment Upload -->
       <div class="card">
-        <div class="card-head"><div class="t">Attachment</div><div class="s" style="color:#ffffff">Scanned copy of received letter / document</div></div>
+        <div class="card-head">
+          <div class="t">Attachment</div>
+          <div class="s" style="color:#ffffff">Scanned copy of received letter / document</div>
+        </div>
         <div class="card-body">
-          <div id="attach-drop" onclick="document.getElementById('attachFile').click()"
-            style="border:2px dashed var(--th-border);border-radius:3px;padding:18px 12px;text-align:center;cursor:pointer;transition:border-color .2s;color:var(--th-text-muted);font-size:.82rem">
-            <div style="font-size:1.6rem;margin-bottom:6px">📎</div>
-            <div>Click to select a PDF file</div>
-            <div style="font-size:.68rem;margin-top:4px;color:var(--th-text-faint)">PDF only · max 10MB</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:10px">
+            <!-- Select PDF File -->
+            <div id="attach-drop" onclick="document.getElementById('attachFile').click()"
+              style="border:2px dashed var(--th-border);border-radius:4px;padding:16px 10px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(255,255,255,0.02);display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <div style="font-size:1.6rem;margin-bottom:4px">📁</div>
+              <div style="font-weight:600;font-size:.82rem;color:var(--th-text-primary)">Select PDF File</div>
+              <div style="font-size:.68rem;margin-top:3px;color:var(--th-text-muted)">Browse existing PDF · max 10MB</div>
+            </div>
+
+            <!-- Scan PDF File -->
+            <div id="attach-scan-card" onclick="startScannerFlow('main')"
+              style="border:2px dashed var(--th-border);border-radius:4px;padding:16px 10px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(255,255,255,0.02);display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <div style="font-size:1.6rem;margin-bottom:4px">🖨️</div>
+              <div style="font-weight:600;font-size:.82rem;color:var(--th-accent, #d4a843)">Scan PDF File</div>
+              <div style="font-size:.68rem;margin-top:3px;color:var(--th-text-muted)">Auto-detect scanner or printer</div>
+            </div>
           </div>
+
           <input type="file" id="attachFile" accept="application/pdf" style="display:none" onchange="handleAttach(this)"/>
+
           <div id="attach-preview" style="margin-top:10px;display:none">
-            <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--th-bg-card);border:1px solid var(--th-border);border-radius:2px">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--th-bg-card);border:1px solid var(--th-border);border-radius:3px">
               <span style="font-size:1.1rem">📄</span>
-              <span id="attach-name" style="font-size:.82rem;color:var(--th-text-primary);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-              <button onclick="removeAttach()" style="background:transparent;border:1px solid var(--th-red-text);color:var(--th-red-text);font-size:.6rem;padding:2px 8px;border-radius:2px;cursor:pointer">REMOVE</button>
+              <span id="attach-name" style="font-size:.82rem;font-weight:500;color:var(--th-text-primary);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+              <button type="button" onclick="previewCurrentPdf('main')" style="background:transparent;border:1px solid var(--th-accent, #d4a843);color:var(--th-accent, #d4a843);font-size:.65rem;padding:3px 8px;border-radius:2px;cursor:pointer;font-weight:600;margin-right:4px">VIEW PDF</button>
+              <button type="button" onclick="removeAttach()" style="background:transparent;border:1px solid var(--th-red-text, #e55353);color:var(--th-red-text, #e55353);font-size:.65rem;padding:3px 8px;border-radius:2px;cursor:pointer;font-weight:600">REMOVE</button>
             </div>
           </div>
         </div>
@@ -8570,6 +8915,56 @@ html[data-theme="misty"] .nav-user-name, html[data-theme="misty"] #nav-uname { c
     </div>
   </div>
 </div>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     FLOATING TEAM CHAT (FACEBOOK / MESSENGER STYLE)
+     ════════════════════════════════════════════════════════════════════ -->
+
+<!-- Floating Launcher Pill (visible when chat window is closed) -->
+<div id="floating-chat-pill" class="no-print hidden" onclick="openFloatingChat()" title="Open Team Chat">
+  <span class="floating-chat-icon">💬</span>
+  <span class="floating-chat-label">Team Chat</span>
+  <span class="floating-chat-dot"></span>
+  <span class="floating-chat-badge hidden" id="chat-unread-badge">0</span>
+</div>
+
+<!-- Floating Chat Window (docked at bottom-right) -->
+<div id="floating-chat-window" class="no-print hidden">
+  <!-- Header Bar (click to minimize/maximize) -->
+  <div class="floating-chat-header" onclick="toggleChatHeaderClick(event)">
+    <div class="floating-chat-hdr-left">
+      <span class="floating-chat-icon" style="font-size:1.05rem;">💬</span>
+      <span class="floating-chat-title">Team Chat</span>
+      <span class="floating-chat-status">
+        <span class="floating-chat-dot"></span>
+        <span id="chat-online-count">Online</span>
+      </span>
+      <span class="floating-chat-badge hidden" id="chat-unread-hdr-badge">0</span>
+    </div>
+    
+    <div class="floating-chat-hdr-actions">
+      <button class="floating-chat-ctrl-btn" onclick="toggleChatMinimize(event)" title="Minimize" id="btn-chat-min" aria-label="Minimize">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </button>
+      <button class="floating-chat-ctrl-btn close" onclick="closeFloatingChat(event)" title="Close chat" aria-label="Close">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Chat Body -->
+  <div class="floating-chat-body">
+    <div class="dash-chat-messages" id="dash-chat-messages">
+      <div class="dash-empty">Loading messages…</div>
+    </div>
+    <div class="dash-chat-input-row">
+      <input type="text" id="dash-chat-input" class="dash-chat-input" placeholder="Type a message…"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMsg();}"/>
+      <button class="dash-chat-send" onclick="sendChatMsg()">Send</button>
+    </div>
+  </div>
+</div>
+
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
@@ -10248,7 +10643,8 @@ function handleAttach(input) {
     attachmentData = { name: file.name, file: file, dataUrl: e.target.result };
     document.getElementById('attach-name').textContent = file.name;
     document.getElementById('attach-preview').style.display = '';
-    document.getElementById('attach-drop').style.borderColor = 'var(--th-accent)';
+    const drop = document.getElementById('attach-drop'); if (drop) drop.style.borderColor = 'var(--th-accent, #d4a843)';
+    const scan = document.getElementById('attach-scan-card'); if (scan) scan.style.borderColor = 'var(--th-accent, #d4a843)';
   };
   reader.readAsDataURL(file);
 }
@@ -10257,7 +10653,8 @@ function removeAttach() {
   document.getElementById('attach-preview').style.display = 'none';
   document.getElementById('attach-name').textContent = '';
   document.getElementById('attachFile').value = '';
-  document.getElementById('attach-drop').style.borderColor = '#444';
+  const drop = document.getElementById('attach-drop'); if (drop) drop.style.borderColor = 'var(--th-border, #444)';
+  const scan = document.getElementById('attach-scan-card'); if (scan) scan.style.borderColor = 'var(--th-border, #444)';
 }
 
 // ── TOGGLE HELPER ────────────────────────────────────────
@@ -11655,18 +12052,27 @@ function showIncomingEditModal(s) {
 
       <!-- Attachment -->
       <div class="field" style="margin-bottom:12px"><label>ATTACHMENT</label>
-        <div id="em-attach-drop" onclick="document.getElementById('em-attachFile').click()"
-          style="border:2px dashed var(--th-border);border-radius:3px;padding:12px;text-align:center;cursor:pointer;color:var(--th-text-muted);font-size:.78rem;transition:border-color .2s">
-          <div style="font-size:1.3rem;margin-bottom:4px">📎</div>
-          <div>Click to select a PDF file</div>
-          <div style="font-size:.65rem;margin-top:3px;color:var(--th-text-faint)">PDF only · max 10MB</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div id="em-attach-drop" onclick="document.getElementById('em-attachFile').click()"
+            style="border:2px dashed var(--th-border);border-radius:4px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(255,255,255,0.02)">
+            <div style="font-size:1.3rem;margin-bottom:2px">📁</div>
+            <div style="font-weight:600;font-size:.76rem;color:var(--th-text-primary)">Select PDF</div>
+            <div style="font-size:.64rem;color:var(--th-text-muted)">PDF only · max 10MB</div>
+          </div>
+          <div id="em-attach-scan" onclick="startScannerFlow('edit_incoming')"
+            style="border:2px dashed var(--th-border);border-radius:4px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(255,255,255,0.02)">
+            <div style="font-size:1.3rem;margin-bottom:2px">🖨️</div>
+            <div style="font-weight:600;font-size:.76rem;color:var(--th-accent, #d4a843)">Scan PDF</div>
+            <div style="font-size:.64rem;color:var(--th-text-muted)">Auto-detect scanner</div>
+          </div>
         </div>
         <input type="file" id="em-attachFile" accept="application/pdf" style="display:none" onchange="handleEmAttach(this)"/>
         <div id="em-attach-preview" style="margin-top:8px;display:${attachName?'':'none'}">
           <div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--th-bg-card);border:1px solid var(--th-border);border-radius:2px">
             <span style="font-size:1rem">📄</span>
             <span id="em-attach-name" style="font-size:.78rem;color:var(--th-text-primary);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${attachName}</span>
-            <button onclick="removeEmAttach()" style="background:transparent;border:1px solid var(--th-red-text);color:var(--th-red-text);font-size:.6rem;padding:2px 8px;border-radius:2px;cursor:pointer">REMOVE</button>
+            <button type="button" onclick="previewCurrentPdf('edit_incoming')" style="background:transparent;border:1px solid var(--th-accent,#d4a843);color:var(--th-accent,#d4a843);font-size:.6rem;padding:2px 8px;border-radius:2px;cursor:pointer;margin-right:4px">VIEW</button>
+            <button type="button" onclick="removeEmAttach()" style="background:transparent;border:1px solid var(--th-red-text);color:var(--th-red-text);font-size:.6rem;padding:2px 8px;border-radius:2px;cursor:pointer">REMOVE</button>
           </div>
         </div>
       </div>
@@ -11847,7 +12253,8 @@ function handleEmAttach(input) {
     window._emAttachData = { name: file.name, file: file, dataUrl: e.target.result };
     document.getElementById('em-attach-name').textContent = file.name;
     document.getElementById('em-attach-preview').style.display = '';
-    document.getElementById('em-attach-drop').style.borderColor = 'var(--th-accent)';
+    const drop = document.getElementById('em-attach-drop'); if (drop) drop.style.borderColor = 'var(--th-accent, #d4a843)';
+    const scan = document.getElementById('em-attach-scan'); if (scan) scan.style.borderColor = 'var(--th-accent, #d4a843)';
   };
   reader.readAsDataURL(file);
 }
@@ -11857,7 +12264,8 @@ function removeEmAttach() {
   document.getElementById('em-attach-preview').style.display = 'none';
   document.getElementById('em-attach-name').textContent = '';
   document.getElementById('em-attachFile').value = '';
-  document.getElementById('em-attach-drop').style.borderColor = '#444';
+  const drop = document.getElementById('em-attach-drop'); if (drop) drop.style.borderColor = 'var(--th-border, #444)';
+  const scan = document.getElementById('em-attach-scan'); if (scan) scan.style.borderColor = 'var(--th-border, #444)';
 }
 
 async function saveIncomingEdit(id) {
@@ -12498,12 +12906,19 @@ async function showOutgoingModal(s) {
       </div>
 
       <div class="field" style="margin-bottom:12px"><label>ATTACHMENT</label>
-        <div id="om-attach-drop" onclick="document.getElementById('om-attachFile').click()"
-          style="border:2px dashed var(--th-border);border-radius:3px;padding:12px;text-align:center;
-                 cursor:pointer;transition:border-color .2s;color:var(--th-text-muted);font-size:.78rem">
-          <div style="font-size:1.3rem;margin-bottom:4px">📎</div>
-          <div>Click to select a PDF file</div>
-          <div style="font-size:.65rem;margin-top:3px;color:var(--th-text-faint)">PDF only · max 10MB</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div id="om-attach-drop" onclick="document.getElementById('om-attachFile').click()"
+            style="border:2px dashed var(--th-border);border-radius:4px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(255,255,255,0.02)">
+            <div style="font-size:1.3rem;margin-bottom:2px">📁</div>
+            <div style="font-weight:600;font-size:.76rem;color:var(--th-text-primary)">Select PDF</div>
+            <div style="font-size:.64rem;color:var(--th-text-muted)">PDF only · max 10MB</div>
+          </div>
+          <div id="om-attach-scan" onclick="startScannerFlow('outgoing')"
+            style="border:2px dashed var(--th-border);border-radius:4px;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s;background:rgba(255,255,255,0.02)">
+            <div style="font-size:1.3rem;margin-bottom:2px">🖨️</div>
+            <div style="font-weight:600;font-size:.76rem;color:var(--th-accent, #d4a843)">Scan PDF</div>
+            <div style="font-size:.64rem;color:var(--th-text-muted)">Auto-detect scanner</div>
+          </div>
         </div>
         <input type="file" id="om-attachFile" accept="application/pdf" style="display:none"
           onchange="handleOutAttach(this)"/>
@@ -12513,6 +12928,9 @@ async function showOutgoingModal(s) {
             <span style="font-size:1rem">📄</span>
             <span id="om-attach-name" style="font-size:.78rem;color:var(--th-text-primary);flex:1;overflow:hidden;
                   text-overflow:ellipsis;white-space:nowrap">${vals.attachmentName||''}</span>
+            <button type="button" onclick="previewCurrentPdf('outgoing')"
+              style="background:transparent;border:1px solid var(--th-accent,#d4a843);color:var(--th-accent,#d4a843);
+                     font-size:.6rem;padding:2px 8px;border-radius:2px;cursor:pointer;margin-right:4px">VIEW</button>
             <button onclick="removeOutAttach()"
               style="background:transparent;border:1px solid var(--th-red-text);color:var(--th-red-text);
                      font-size:.6rem;padding:2px 8px;border-radius:2px;cursor:pointer">REMOVE</button>
@@ -12638,7 +13056,8 @@ function handleOutAttach(input) {
     window._outAttachData = { name: file.name, file: file, dataUrl: e.target.result };
     document.getElementById('om-attach-name').textContent = file.name;
     document.getElementById('om-attach-preview').style.display = '';
-    document.getElementById('om-attach-drop').style.borderColor = 'var(--th-accent)';
+    const drop = document.getElementById('om-attach-drop'); if (drop) drop.style.borderColor = 'var(--th-accent, #d4a843)';
+    const scan = document.getElementById('om-attach-scan'); if (scan) scan.style.borderColor = 'var(--th-accent, #d4a843)';
   };
   reader.readAsDataURL(file);
 }
@@ -12647,7 +13066,8 @@ function removeOutAttach() {
   document.getElementById('om-attach-preview').style.display = 'none';
   document.getElementById('om-attach-name').textContent = '';
   document.getElementById('om-attachFile').value = '';
-  document.getElementById('om-attach-drop').style.borderColor = '#444';
+  const drop = document.getElementById('om-attach-drop'); if (drop) drop.style.borderColor = 'var(--th-border, #444)';
+  const scan = document.getElementById('om-attach-scan'); if (scan) scan.style.borderColor = 'var(--th-border, #444)';
 }
 
 async function saveOutgoing(editId) {
@@ -14525,6 +14945,7 @@ async function checkSession() {
 }
 
 async function doLogout() {
+  stopChatPoll();
   try { await fetch(`${API_URL}?action=logout`, { method:'POST', credentials:'include' }); } catch(e) {}
   sessionStorage.removeItem('rs_account');
   // Clear all persisted tab/scroll/filter state so next login starts fresh
@@ -14544,6 +14965,7 @@ function onLoginSuccess() {
 
   startLiveRefresh(); // start 2-second live data refresh
   loadDeliveryOffices(true).catch(()=>{}); // warm the offices cache
+  initFloatingChat(); // initialize floating team chat & live poll
 
   // Apply role class to body for CSS-based delete button visibility
   document.body.className = `role-${currentAccount.role}`;
@@ -15296,25 +15718,151 @@ async function loadDashboard() {
     renderDashChart('offices');
 
     // ── Load chat ──
-    _lastChatId = 0;   // reset so initial load fetches all messages
-    loadChatMessages();
-    startChatPoll();
+    if (!_chatPollTimer) startChatPoll();
 
   } catch (e) {
     console.error('loadDashboard error', e);
   }
 }
 
-// ── Team Chat ─────────────────────────────────────────────
+// ── Floating Team Chat (Facebook / Messenger Style) ───────
+_chatPollTimer = null;
+let _lastChatId = 0;
+let _unreadChatCount = 0;
+
+function isFloatingChatOpen() {
+  const win = document.getElementById('floating-chat-window');
+  if (!win) return false;
+  return !win.classList.contains('hidden') && !win.classList.contains('minimized');
+}
+
+function openFloatingChat() {
+  const pill = document.getElementById('floating-chat-pill');
+  const win = document.getElementById('floating-chat-window');
+  if (pill) pill.classList.add('hidden');
+  if (win) {
+    win.classList.remove('hidden');
+    win.classList.remove('minimized');
+  }
+  updateChatMinIcon();
+  clearChatUnread();
+  sessionStorage.setItem('rs_chat_pref', 'open');
+  const input = document.getElementById('dash-chat-input');
+  if (input) setTimeout(() => input.focus(), 120);
+  const msgs = document.getElementById('dash-chat-messages');
+  if (msgs) msgs.scrollTop = msgs.scrollHeight;
+}
+
+function closeFloatingChat(e) {
+  if (e) e.stopPropagation();
+  const pill = document.getElementById('floating-chat-pill');
+  const win = document.getElementById('floating-chat-window');
+  if (win) win.classList.add('hidden');
+  if (pill) pill.classList.remove('hidden');
+  sessionStorage.setItem('rs_chat_pref', 'closed');
+}
+
+function toggleChatMinimize(e) {
+  if (e) e.stopPropagation();
+  const win = document.getElementById('floating-chat-window');
+  if (!win) return;
+  win.classList.toggle('minimized');
+  const isMin = win.classList.contains('minimized');
+  sessionStorage.setItem('rs_chat_pref', isMin ? 'minimized' : 'open');
+  updateChatMinIcon();
+  if (!isMin) {
+    clearChatUnread();
+    const input = document.getElementById('dash-chat-input');
+    if (input) setTimeout(() => input.focus(), 120);
+    const msgs = document.getElementById('dash-chat-messages');
+    if (msgs) msgs.scrollTop = msgs.scrollHeight;
+  }
+}
+
+function toggleChatHeaderClick(e) {
+  if (e.target.closest('.floating-chat-ctrl-btn')) return;
+  toggleChatMinimize(e);
+}
+
+function updateChatMinIcon() {
+  const win = document.getElementById('floating-chat-window');
+  const btn = document.getElementById('btn-chat-min');
+  if (!btn || !win) return;
+  if (win.classList.contains('minimized')) {
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+    btn.title = 'Expand';
+  } else {
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>';
+    btn.title = 'Minimize';
+  }
+}
+
+function clearChatUnread() {
+  _unreadChatCount = 0;
+  const b1 = document.getElementById('chat-unread-badge');
+  const b2 = document.getElementById('chat-unread-hdr-badge');
+  if (b1) { b1.textContent = '0'; b1.classList.add('hidden'); }
+  if (b2) { b2.textContent = '0'; b2.classList.add('hidden'); }
+}
+
+function setChatUnread(count) {
+  _unreadChatCount = count;
+  const b1 = document.getElementById('chat-unread-badge');
+  const b2 = document.getElementById('chat-unread-hdr-badge');
+  if (b1) {
+    b1.textContent = count > 99 ? '99+' : String(count);
+    b1.classList.toggle('hidden', count <= 0);
+  }
+  if (b2) {
+    b2.textContent = count > 99 ? '99+' : String(count);
+    b2.classList.toggle('hidden', count <= 0);
+  }
+}
+
+function playChatChime() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(587.33, now); // D5
+    osc.frequency.setValueAtTime(880, now + 0.1); // A5
+    gain.gain.setValueAtTime(0.08, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.35);
+  } catch(e) {}
+}
+
+function initFloatingChat() {
+  const pref = sessionStorage.getItem('rs_chat_pref') || 'open';
+  const pill = document.getElementById('floating-chat-pill');
+  const win = document.getElementById('floating-chat-window');
+  if (pref === 'open') {
+    if (pill) pill.classList.add('hidden');
+    if (win) { win.classList.remove('hidden'); win.classList.remove('minimized'); }
+  } else if (pref === 'minimized') {
+    if (pill) pill.classList.add('hidden');
+    if (win) { win.classList.remove('hidden'); win.classList.add('minimized'); }
+  } else {
+    if (win) win.classList.add('hidden');
+    if (pill) pill.classList.remove('hidden');
+  }
+  updateChatMinIcon();
+  startChatPoll();
+}
+
 function startChatPoll() {
   stopChatPoll();
-  _chatPollTimer = setInterval(loadChatMessages, 5000); // poll every 5s
+  loadChatMessages();
+  _chatPollTimer = setInterval(loadChatMessages, 5000); // poll every 5s across entire app
 }
 function stopChatPoll() {
   if (_chatPollTimer) { clearInterval(_chatPollTimer); _chatPollTimer = null; }
 }
-
-let _lastChatId = 0;
 
 async function loadChatMessages() {
   try {
@@ -15350,8 +15898,11 @@ async function loadChatMessages() {
       // Append only new messages
       const emptyMsg = container.querySelector('.dash-empty');
       if (emptyMsg) emptyMsg.remove();
+      
+      let newFromOthers = 0;
       msgs.forEach(m => {
         const isMe = m.sender_username === myUser;
+        if (!isMe) newFromOthers++;
         const time = (m.created_at || '').substring(11, 16);
         const bubble = document.createElement('div');
         bubble.className = `dash-chat-bubble ${isMe ? 'me' : 'other'}`;
@@ -15360,11 +15911,16 @@ async function loadChatMessages() {
           <div class="dash-chat-time">${time}</div>`;
         container.appendChild(bubble);
       });
+
+      if (newFromOthers > 0 && !isFloatingChatOpen()) {
+        setChatUnread(_unreadChatCount + newFromOthers);
+        playChatChime();
+      }
     }
 
     _lastChatId = msgs[msgs.length - 1]?.id || _lastChatId;
 
-    // Auto-scroll to bottom
+    // Auto-scroll to bottom if open
     container.scrollTop = container.scrollHeight;
   } catch(e) { /* silent */ }
 }
@@ -15390,6 +15946,7 @@ async function sendChatMsg() {
   }
 }
 
+
 // ── View switching ────────────────────────────────────────
 function showView(name, { skipSave = false } = {}) {
   const allViews = ['dashboard','form','incoming','outgoing','logs','my-logs','inbox','notifications','accounts','archives','recv-notif'];
@@ -15413,7 +15970,7 @@ function showView(name, { skipSave = false } = {}) {
   // Attach after a brief delay so the DOM has rendered
   setTimeout(() => _attachScrollTracker(name), 300);
 
-  if (name === 'dashboard')     loadDashboard(); else stopChatPoll();
+  if (name === 'dashboard')     loadDashboard();
   if (name === 'incoming')      { unseenCount = 0; updateBadge(); loadIncoming(); }
   if (name === 'outgoing')      loadOutgoing();
   if (name === 'logs')          startLogsRefresh(); else stopLogsRefresh();
@@ -18910,6 +19467,12 @@ window.addEventListener('resize', () => {
     const password=$('rsl-pass').value.toUpperCase();
     if(!username||!password){ showErr('Please enter your username and password.'); return; }
     const btn=$('rsl-btn'); btn.disabled=true; btn.classList.add('loading');
+    const ov = document.getElementById('session-check-overlay');
+    const txt = document.getElementById('rs-loader-text-el');
+    if (ov) {
+      if (txt) txt.textContent = 'LOGGING IN...';
+      ov.style.display = 'flex';
+    }
     try{
       const res=await fetch(API+'?action=login',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
       const data=await res.json();
@@ -18920,19 +19483,546 @@ window.addEventListener('resize', () => {
         location.reload();
         return;
       }
+      if (ov) ov.style.display = 'none';
       showErr(data.error||'Invalid username or password.');
       $('rsl-pass').value=''; $('rsl-pass').focus();
     }catch(e){
+      if (ov) ov.style.display = 'none';
       showErr('⛔ Could not read local storage.\n\nMake sure your browser allows site data (IndexedDB / localStorage) and you are not in a restricted private window.');
     }
     btn.disabled=false; btn.classList.remove('loading');
   };
   // called by the app when there is no valid session
   window.rsShowLogin = function(){
+    const ov = document.getElementById('session-check-overlay');
+    if (ov) ov.style.display = 'none';
     document.documentElement.classList.remove('rs-authed');
     const u=$('rsl-user'); if(u) setTimeout(()=>u.focus(),50);
   };
 })();
 </script>
+<!-- ════════════════════════════════════════════════════════════════════
+     SCANNER / PRINTER DOCUMENT CAPTURE MODAL
+     ════════════════════════════════════════════════════════════════════ -->
+<div id="rs-scanner-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(4px);z-index:99999;align-items:center;justify-content:center;font-family:inherit">
+  <div style="background:var(--th-bg-card, #121214);border:1px solid var(--th-border, #2a2a30);border-radius:8px;box-shadow:0 12px 40px rgba(0,0,0,0.7);width:94%;max-width:680px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden">
+    
+    <!-- Modal Header -->
+    <div style="padding:14px 18px;border-bottom:1px solid var(--th-border, #2a2a30);display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.02)">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:1.4rem">🖨️</span>
+        <div>
+          <div style="font-weight:700;font-size:1rem;color:var(--th-accent, #d4a843);letter-spacing:.02em">Scan Document to PDF</div>
+          <div style="font-size:.72rem;color:var(--th-text-muted, #8e8e98)">Auto-detects connected scanners and printers with scanner</div>
+        </div>
+      </div>
+      <button type="button" onclick="closeScannerModal()" style="background:transparent;border:none;color:var(--th-text-muted, #8e8e98);font-size:1.4rem;cursor:pointer;padding:2px 8px;line-height:1">✕</button>
+    </div>
+
+    <!-- Modal Body -->
+    <div style="padding:18px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:16px">
+
+      <!-- Status Banner -->
+      <div id="rs-scanner-status-box" style="padding:12px 14px;border-radius:6px;background:rgba(255,255,255,0.03);border:1px solid var(--th-border, #2a2a30);display:flex;align-items:center;gap:12px">
+        <div id="rs-scanner-spinner" class="rs-spin" style="width:20px;height:20px;border:2.5px solid #444;border-top-color:var(--th-accent, #d4a843);border-radius:50%;display:none;flex-shrink:0"></div>
+        <span id="rs-scanner-icon" style="font-size:1.3rem">🔍</span>
+        <div style="flex:1">
+          <div id="rs-scanner-status-title" style="font-size:.85rem;font-weight:600;color:var(--th-text-primary, #e4e4e8)">Looking for connected scanner...</div>
+          <div id="rs-scanner-status-desc" style="font-size:.72rem;color:var(--th-text-muted, #8e8e98);margin-top:2px">Searching USB and network devices</div>
+        </div>
+      </div>
+
+      <!-- Scanned Pages Thumbnails Tray -->
+      <div id="rs-scanner-pages-tray" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <span style="font-size:.78rem;font-weight:600;color:var(--th-accent, #d4a843);text-transform:uppercase;letter-spacing:.05em">Scanned Pages</span>
+          <span id="rs-scanner-page-count" style="font-size:.72rem;color:var(--th-text-muted, #8e8e98)">0 pages</span>
+        </div>
+        <div id="rs-scanner-thumbs-grid" style="display:flex;gap:10px;overflow-x:auto;padding:8px 4px;min-height:120px"></div>
+      </div>
+
+      <!-- Live Camera Container (when doc-camera mode is activated) -->
+      <div id="rs-camera-container" style="display:none;flex-direction:column;align-items:center;gap:10px;border:1px solid var(--th-border, #2a2a30);border-radius:6px;padding:12px;background:#000">
+        <div style="position:relative;width:100%;max-width:480px;height:270px;background:#111;overflow:hidden;border-radius:4px;display:flex;align-items:center;justify-content:center">
+          <video id="rs-camera-video" autoplay playsinline style="width:100%;height:100%;object-fit:contain"></video>
+          <div style="position:absolute;top:10px;left:10px;right:10px;bottom:10px;border:2px dashed rgba(212,168,67,0.7);border-radius:4px;pointer-events:none;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px">
+            <span style="background:rgba(0,0,0,0.6);color:#d4a843;padding:2px 8px;font-size:.65rem;border-radius:2px">Align document inside frame</span>
+          </div>
+        </div>
+        <canvas id="rs-camera-canvas" style="display:none"></canvas>
+        <div style="display:flex;gap:10px;width:100%;max-width:480px;justify-content:center">
+          <button type="button" onclick="captureCameraPage()" style="background:var(--th-accent, #d4a843);color:#000;border:none;padding:7px 18px;border-radius:4px;font-size:.8rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px">📸 Capture Page</button>
+          <button type="button" onclick="stopCameraStream(); renderScannerUi('idle');" style="background:transparent;border:1px solid var(--th-border, #444);color:var(--th-text-muted, #8e8e98);padding:7px 12px;border-radius:4px;font-size:.78rem;cursor:pointer">Cancel Camera</button>
+        </div>
+      </div>
+
+      <!-- Error / Guidance Box -->
+      <div id="rs-scanner-error-panel" style="display:none;background:rgba(229,83,83,0.06);border:1px solid rgba(229,83,83,0.3);border-radius:6px;padding:12px">
+        <div style="display:flex;align-items:flex-start;gap:8px">
+          <span style="font-size:1.1rem;color:#e55353">⚠</span>
+          <div style="flex:1">
+            <div id="rs-scanner-error-text" style="font-size:.8rem;color:#e55353;font-weight:600">No scanner or printer with scanner detected.</div>
+            <div style="font-size:.72rem;color:var(--th-text-muted, #8e8e98);margin-top:6px;line-height:1.4">
+              • Make sure your scanner or printer (e.g. Epson L3210 Series) is powered ON.<br>
+              • Ensure the USB cable is securely connected or it is on the same Wi-Fi.<br>
+              • Ensure scanner drivers (Epson Scan / WIA) are installed.
+            </div>
+            <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px">
+              <button type="button" onclick="triggerScan()" style="background:var(--th-accent, #d4a843);color:#000;border:none;padding:5px 12px;border-radius:3px;font-size:.72rem;font-weight:700;cursor:pointer">🔄 Retry Search</button>
+              <button type="button" onclick="launchWindowsScanApp()" style="background:transparent;border:1px solid var(--th-accent, #d4a843);color:var(--th-accent, #d4a843);padding:5px 12px;border-radius:3px;font-size:.72rem;cursor:pointer">🪟 Windows Scan App</button>
+              <button type="button" onclick="startCameraCapture()" style="background:transparent;border:1px solid var(--th-border, #444);color:var(--th-text-primary, #e4e4e8);padding:5px 12px;border-radius:3px;font-size:.72rem;cursor:pointer">📷 Use Document Camera</button>
+              <button type="button" onclick="closeScannerModal(); pickPdfDirectly();" style="background:transparent;border:1px solid var(--th-border, #444);color:var(--th-text-muted, #8e8e98);padding:5px 12px;border-radius:3px;font-size:.72rem;cursor:pointer">📁 Select PDF File</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer Actions -->
+    <div style="padding:12px 18px;border-top:1px solid var(--th-border, #2a2a30);background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;gap:8px">
+        <button id="rs-scan-next-btn" type="button" onclick="triggerScan()" style="display:none;background:rgba(255,255,255,0.08);border:1px solid var(--th-border, #444);color:var(--th-text-primary, #e4e4e8);padding:7px 14px;border-radius:4px;font-size:.78rem;font-weight:600;cursor:pointer">
+          + Scan Next Page
+        </button>
+        <button id="rs-scan-camera-btn" type="button" onclick="startCameraCapture()" style="display:none;background:transparent;border:1px solid var(--th-border, #444);color:var(--th-text-muted, #8e8e98);padding:7px 12px;border-radius:4px;font-size:.76rem;cursor:pointer">
+          📷 Camera Scan
+        </button>
+      </div>
+
+      <div style="display:flex;gap:8px">
+        <button type="button" onclick="closeScannerModal()" style="background:transparent;border:1px solid var(--th-border, #444);color:var(--th-text-muted, #8e8e98);padding:7px 14px;border-radius:4px;font-size:.78rem;cursor:pointer">
+          Cancel
+        </button>
+        <button id="rs-scan-attach-btn" type="button" onclick="finishAndAttachPdf()" disabled style="background:var(--th-accent, #d4a843);color:#000;border:none;padding:7px 18px;border-radius:4px;font-size:.8rem;font-weight:700;cursor:pointer;opacity:0.5">
+          ✓ Finish & Attach PDF
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+/* ════════════════════════════════════════════════════════════════════
+   SCANNER & PDF GENERATOR CONTROLLER
+   ════════════════════════════════════════════════════════════════════ */
+(function() {
+  let _scannerTarget = 'main';
+  let _scannedPages = [];
+  let _cameraStream = null;
+
+  window.buildPdfBlobFromImages = function(pages) {
+    const chunks = [];
+    let byteLen = 0;
+    const enc = new TextEncoder();
+
+    function pushStr(s) {
+      const b = enc.encode(s);
+      chunks.push(b);
+      byteLen += b.length;
+    }
+    function pushBytes(b) {
+      chunks.push(b);
+      byteLen += b.length;
+    }
+
+    pushStr('%PDF-1.4\n');
+
+    let objCount = 0;
+    const catalogObjNum = ++objCount;
+    const pagesObjNum = ++objCount;
+
+    const pageObjNums = [];
+    const xobjNums = [];
+    const contentObjNums = [];
+
+    for (let i = 0; i < pages.length; i++) {
+      pageObjNums.push(++objCount);
+      xobjNums.push(++objCount);
+      contentObjNums.push(++objCount);
+    }
+
+    const kidsStr = pageObjNums.map(n => `${n} 0 R`).join(' ');
+    const objOffsets = [];
+
+    objOffsets[catalogObjNum] = byteLen;
+    pushStr(`${catalogObjNum} 0 obj\n<</Type /Catalog /Pages ${pagesObjNum} 0 R>>\nendobj\n`);
+
+    objOffsets[pagesObjNum] = byteLen;
+    pushStr(`${pagesObjNum} 0 obj\n<</Type /Pages /Kids [${kidsStr}] /Count ${pages.length}>>\nendobj\n`);
+
+    for (let i = 0; i < pages.length; i++) {
+      const item = pages[i];
+      const pNum = pageObjNums[i];
+      const xNum = xobjNums[i];
+      const cNum = contentObjNums[i];
+
+      const pw = 612, ph = 792;
+      let drawW = pw, drawH = ph, posX = 0, posY = 0;
+      const imgAspect = item.width / item.height;
+      const pageAspect = pw / ph;
+
+      if (imgAspect > pageAspect) {
+        drawW = pw;
+        drawH = Math.round(pw / imgAspect);
+        posY = Math.round((ph - drawH) / 2);
+      } else {
+        drawH = ph;
+        drawW = Math.round(ph * imgAspect);
+        posX = Math.round((pw - drawW) / 2);
+      }
+
+      objOffsets[pNum] = byteLen;
+      pushStr(`${pNum} 0 obj\n<</Type /Page /Parent ${pagesObjNum} 0 R /MediaBox [0 0 ${pw} ${ph}] /Resources <</XObject <</Im${i} ${xNum} 0 R>>>> /Contents ${cNum} 0 R>>\nendobj\n`);
+
+      const streamContent = `q ${drawW} 0 0 ${drawH} ${posX} ${posY} cm /Im${i} Do Q\n`;
+      objOffsets[cNum] = byteLen;
+      pushStr(`${cNum} 0 obj\n<</Length ${streamContent.length}>>\nstream\n${streamContent}endstream\nendobj\n`);
+
+      objOffsets[xNum] = byteLen;
+      const imgHeader = `${xNum} 0 obj\n<</Type /XObject /Subtype /Image /Width ${item.width} /Height ${item.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${item.bytes.length}>>\nstream\n`;
+      pushStr(imgHeader);
+      pushBytes(item.bytes);
+      pushStr('\nendstream\nendobj\n');
+    }
+
+    const startxref = byteLen;
+    let xref = `xref\n0 ${objCount + 1}\n0000000000 65535 f \r\n`;
+    for (let i = 1; i <= objCount; i++) {
+      xref += String(objOffsets[i]).padStart(10, '0') + ' 00000 n \r\n';
+    }
+    const trailer = `trailer\n<</Size ${objCount + 1} /Root ${catalogObjNum} 0 R>>\nstartxref\n${startxref}\n%%EOF\n`;
+    pushStr(xref + trailer);
+
+    return new Blob(chunks, { type: 'application/pdf' });
+  };
+
+  window.startScannerFlow = function(target) {
+    _scannerTarget = target || 'main';
+    _scannedPages = [];
+    stopCameraStream();
+
+    const modal = document.getElementById('rs-scanner-modal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    renderScannerUi('detecting');
+
+    triggerScan();
+  };
+
+  window.closeScannerModal = function() {
+    stopCameraStream();
+    const modal = document.getElementById('rs-scanner-modal');
+    if (modal) modal.style.display = 'none';
+  };
+
+  function stopCameraStream() {
+    if (_cameraStream) {
+      try { _cameraStream.getTracks().forEach(t => t.stop()); } catch (e) {}
+      _cameraStream = null;
+    }
+    const vid = document.getElementById('rs-camera-video');
+    if (vid) vid.srcObject = null;
+  }
+  window.stopCameraStream = stopCameraStream;
+
+  window.triggerScan = async function() {
+    renderScannerUi('detecting', 'Searching for connected scanner or printer with scanner...');
+
+    // 1. Check if Electron Native Scanner bridge is available
+    if (window.rsScanner && typeof window.rsScanner.scan === 'function') {
+      try {
+        renderScannerUi('scanning', 'Connecting to scanner hardware...');
+        const res = await window.rsScanner.scan();
+        if (res && res.success) {
+          addScannedPageFromBase64(res.base64, res.width, res.height);
+          renderScannerUi('ready');
+        } else if (res && res.error === 'CANCELLED') {
+          if (_scannedPages.length > 0) renderScannerUi('ready');
+          else renderScannerUi('idle', 'Scan was cancelled.');
+        } else {
+          renderScannerUi('error', res && res.message || 'No scanner or printer with scanner detected.');
+        }
+        return;
+      } catch (e) {
+        renderScannerUi('error', 'Scanner error: ' + (e.message || e));
+        return;
+      }
+    }
+
+    // 2. Check if rs-unit (Supabase/MySQL backend) provides scanner action
+    if (typeof apiPost === 'function') {
+      try {
+        renderScannerUi('scanning', 'Looking for scanner or printer with scanner via local unit service...');
+        const res = await apiPost('scan_document', {});
+        if (res && res.success) {
+          addScannedPageFromBase64(res.base64, res.width, res.height);
+          renderScannerUi('ready');
+          return;
+        } else if (res && res.error === 'CANCELLED') {
+          if (_scannedPages.length > 0) renderScannerUi('ready');
+          else renderScannerUi('idle', 'Scan was cancelled.');
+          return;
+        } else if (res && res.error === 'NO_SCANNER_DETECTED') {
+          renderScannerUi('error', res.message || 'No scanner or printer with scanner detected.');
+          return;
+        }
+      } catch (e) {
+        // unit scan action offline or not configured
+      }
+    }
+
+    // 3. Web Browser mode fallback
+    renderScannerUi('web_fallback', 'Direct hardware scanning is supported in the Routing Slip Desktop App. You can also scan using Windows Scan or a Document Camera below.');
+  };
+
+  function addScannedPageFromBase64(b64, width, height) {
+    const binary = atob(b64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    const dataUrl = 'data:image/jpeg;base64,' + b64;
+    _scannedPages.push({ width: width || 800, height: height || 1100, bytes, dataUrl });
+  }
+
+  window.removeScannedPage = function(index) {
+    if (index >= 0 && index < _scannedPages.length) {
+      _scannedPages.splice(index, 1);
+      renderScannerUi(_scannedPages.length > 0 ? 'ready' : 'idle');
+    }
+  };
+
+  window.finishAndAttachPdf = function() {
+    if (_scannedPages.length === 0) {
+      alert('Please scan at least one page first.');
+      return;
+    }
+
+    const pdfBlob = window.buildPdfBlobFromImages(_scannedPages);
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const dateStr = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+    const fileName = `Scanned_Document_${dateStr}.pdf`;
+    const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      const dataUrl = e.target.result;
+      applyAttachmentToTarget(_scannerTarget, fileName, pdfFile, dataUrl);
+      window.closeScannerModal();
+      if (typeof showToast === 'function') {
+        showToast(`✓ Scanned document attached as PDF (${_scannedPages.length} page${_scannedPages.length > 1 ? 's' : ''})`);
+      }
+    };
+    reader.readAsDataURL(pdfBlob);
+  };
+
+  function applyAttachmentToTarget(target, name, file, dataUrl) {
+    if (target === 'main') {
+      attachmentData = { name, file, dataUrl };
+      const nameEl = document.getElementById('attach-name');
+      if (nameEl) nameEl.textContent = name;
+      const prevEl = document.getElementById('attach-preview');
+      if (prevEl) prevEl.style.display = '';
+      const dropEl = document.getElementById('attach-drop');
+      if (dropEl) dropEl.style.borderColor = 'var(--th-accent, #d4a843)';
+      const scanCard = document.getElementById('attach-scan-card');
+      if (scanCard) scanCard.style.borderColor = 'var(--th-accent, #d4a843)';
+    } else if (target === 'edit_incoming') {
+      window._emAttachData = { name, file, dataUrl };
+      const nameEl = document.getElementById('em-attach-name');
+      if (nameEl) nameEl.textContent = name;
+      const prevEl = document.getElementById('em-attach-preview');
+      if (prevEl) prevEl.style.display = '';
+      const dropEl = document.getElementById('em-attach-drop');
+      if (dropEl) dropEl.style.borderColor = 'var(--th-accent, #d4a843)';
+      const scanEl = document.getElementById('em-attach-scan');
+      if (scanEl) scanEl.style.borderColor = 'var(--th-accent, #d4a843)';
+    } else if (target === 'outgoing') {
+      window._outAttachData = { name, file, dataUrl };
+      const nameEl = document.getElementById('om-attach-name');
+      if (nameEl) nameEl.textContent = name;
+      const prevEl = document.getElementById('om-attach-preview');
+      if (prevEl) prevEl.style.display = '';
+      const dropEl = document.getElementById('om-attach-drop');
+      if (dropEl) dropEl.style.borderColor = 'var(--th-accent, #d4a843)';
+      const scanEl = document.getElementById('om-attach-scan');
+      if (scanEl) scanEl.style.borderColor = 'var(--th-accent, #d4a843)';
+    }
+  }
+
+  window.previewCurrentPdf = function(target) {
+    let item = null;
+    if (target === 'main') item = attachmentData;
+    else if (target === 'edit_incoming') item = window._emAttachData;
+    else if (target === 'outgoing') item = window._outAttachData;
+
+    if (!item || (!item.dataUrl && !item.file)) {
+      alert('No attached PDF to view.');
+      return;
+    }
+
+    let url = item.dataUrl;
+    if (!url && item.file) {
+      url = URL.createObjectURL(item.file);
+    }
+    if (url) {
+      const w = window.open();
+      if (w) {
+        w.document.write(`<title>${item.name || 'PDF Preview'}</title><body style="margin:0;background:#222"><embed width="100%" height="100%" src="${url}" type="application/pdf"></body>`);
+      } else {
+        window.open(url, '_blank');
+      }
+    }
+  };
+
+  window.renderScannerUi = function(state, msg) {
+    const statusBox = document.getElementById('rs-scanner-status-box');
+    const icon = document.getElementById('rs-scanner-icon');
+    const spinner = document.getElementById('rs-scanner-spinner');
+    const title = document.getElementById('rs-scanner-status-title');
+    const desc = document.getElementById('rs-scanner-status-desc');
+    const tray = document.getElementById('rs-scanner-pages-tray');
+    const thumbsGrid = document.getElementById('rs-scanner-thumbs-grid');
+    const pageCount = document.getElementById('rs-scanner-page-count');
+    const errPanel = document.getElementById('rs-scanner-error-panel');
+    const errText = document.getElementById('rs-scanner-error-text');
+    const attachBtn = document.getElementById('rs-scan-attach-btn');
+    const nextBtn = document.getElementById('rs-scan-next-btn');
+    const camContainer = document.getElementById('rs-camera-container');
+
+    if (state === 'detecting') {
+      if (statusBox) statusBox.style.display = 'flex';
+      if (spinner) spinner.style.display = 'inline-block';
+      if (icon) icon.style.display = 'none';
+      if (title) title.textContent = 'Looking for scanner or printer with scanner...';
+      if (desc) desc.textContent = msg || 'Checking USB and network connections...';
+      if (errPanel) errPanel.style.display = 'none';
+      if (camContainer) camContainer.style.display = 'none';
+    } else if (state === 'scanning') {
+      if (statusBox) statusBox.style.display = 'flex';
+      if (spinner) spinner.style.display = 'inline-block';
+      if (icon) icon.style.display = 'none';
+      if (title) title.textContent = 'Scanner connected';
+      if (desc) desc.textContent = msg || 'Scanning page... Please wait.';
+      if (errPanel) errPanel.style.display = 'none';
+      if (camContainer) camContainer.style.display = 'none';
+    } else if (state === 'error' || state === 'web_fallback') {
+      if (statusBox) statusBox.style.display = 'none';
+      if (errPanel) errPanel.style.display = 'block';
+      if (errText) errText.textContent = msg || 'No scanner or printer with scanner detected.';
+      if (camContainer) camContainer.style.display = 'none';
+    } else if (state === 'camera') {
+      if (statusBox) statusBox.style.display = 'none';
+      if (errPanel) errPanel.style.display = 'none';
+    } else { // 'ready' or 'idle'
+      if (statusBox) statusBox.style.display = 'flex';
+      if (spinner) spinner.style.display = 'none';
+      if (icon) { icon.style.display = 'inline'; icon.textContent = _scannedPages.length > 0 ? '✓' : '🖨️'; }
+      if (title) title.textContent = _scannedPages.length > 0 ? 'Document scanned' : 'Ready to scan';
+      if (desc) desc.textContent = msg || (_scannedPages.length > 0 ? `${_scannedPages.length} page(s) ready to attach as PDF.` : 'Place document on scanner bed and click Scan.');
+      if (errPanel) errPanel.style.display = 'none';
+    }
+
+    if (tray && thumbsGrid) {
+      if (_scannedPages.length > 0) {
+        tray.style.display = 'block';
+        if (pageCount) pageCount.textContent = `${_scannedPages.length} page${_scannedPages.length > 1 ? 's' : ''}`;
+        thumbsGrid.innerHTML = _scannedPages.map((p, idx) => `
+          <div style="position:relative;width:80px;height:105px;background:#1a1a20;border:1px solid var(--th-border, #444);border-radius:4px;overflow:hidden;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.4)">
+            <img src="${p.dataUrl}" style="width:100%;height:100%;object-fit:cover"/>
+            <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.75);color:#d4a843;font-size:.62rem;font-weight:700;text-align:center;padding:2px">Page ${idx+1}</div>
+            <button type="button" onclick="removeScannedPage(${idx})" title="Remove page" style="position:absolute;top:3px;right:3px;background:rgba(229,83,83,0.9);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:.65rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+          </div>
+        `).join('');
+      } else {
+        tray.style.display = 'none';
+        thumbsGrid.innerHTML = '';
+      }
+    }
+
+    if (attachBtn) {
+      if (_scannedPages.length > 0) {
+        attachBtn.disabled = false;
+        attachBtn.style.opacity = '1';
+        attachBtn.textContent = `✓ Finish & Attach PDF (${_scannedPages.length} page${_scannedPages.length > 1 ? 's' : ''})`;
+      } else {
+        attachBtn.disabled = true;
+        attachBtn.style.opacity = '0.5';
+        attachBtn.textContent = '✓ Finish & Attach PDF';
+      }
+    }
+
+    if (nextBtn) {
+      nextBtn.style.display = _scannedPages.length > 0 ? 'inline-block' : 'none';
+    }
+  };
+
+  window.launchWindowsScanApp = function() {
+    window.location.href = 'ms-scan:';
+  };
+
+  window.pickPdfDirectly = function() {
+    if (_scannerTarget === 'main') {
+      const el = document.getElementById('attachFile');
+      if (el) el.click();
+    } else if (_scannerTarget === 'edit_incoming') {
+      const el = document.getElementById('em-attachFile');
+      if (el) el.click();
+    } else if (_scannerTarget === 'outgoing') {
+      const el = document.getElementById('om-attachFile');
+      if (el) el.click();
+    }
+  };
+
+  window.startCameraCapture = async function() {
+    const container = document.getElementById('rs-camera-container');
+    const video = document.getElementById('rs-camera-video');
+    const errPanel = document.getElementById('rs-scanner-error-panel');
+    if (errPanel) errPanel.style.display = 'none';
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      alert('Camera scanning is not supported by this browser.');
+      return;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { width: { ideal: 1920 }, height: { ideal: 1080 } }
+      });
+      _cameraStream = stream;
+      if (video) video.srcObject = stream;
+      if (container) container.style.display = 'flex';
+      renderScannerUi('camera');
+    } catch (err) {
+      alert('Could not access camera: ' + (err.message || err));
+    }
+  };
+
+  window.captureCameraPage = function() {
+    const video = document.getElementById('rs-camera-video');
+    const canvas = document.getElementById('rs-camera-canvas');
+    if (!video || !canvas || !_cameraStream) return;
+
+    const w = video.videoWidth || 1280;
+    const h = video.videoHeight || 720;
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, w, h);
+
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+    const b64 = dataUrl.split(',')[1];
+    addScannedPageFromBase64(b64, w, h);
+
+    stopCameraStream();
+    const container = document.getElementById('rs-camera-container');
+    if (container) container.style.display = 'none';
+    renderScannerUi('ready');
+  };
+})();
+</script>
+
 </body>
 </html>
